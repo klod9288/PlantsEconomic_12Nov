@@ -31,7 +31,7 @@ public class DrawerMenuSupplierFragment extends Fragment{
 
     private void createListView() {
 
-        ListView listView = getView().findViewById(R.id.listViewTransportDrawer);
+        ListView listView = getView().findViewById(R.id.listViewSupplierDrawer);
         Myconstan myconstan = new Myconstan();
 
 //        Icon
@@ -40,8 +40,10 @@ public class DrawerMenuSupplierFragment extends Fragment{
 //        Title
         String[] strings = myconstan.getTitleSupplierStrings();
 
-        DrawerListViewAdapter drawerListViewAdapter = new DrawerListViewAdapter(getActivity()
-                ,ints,strings);
+        DrawerListViewAdapter drawerListViewAdapter = new DrawerListViewAdapter(
+                getActivity(),
+                ints,
+                strings);
         listView.setAdapter(drawerListViewAdapter);
 
 

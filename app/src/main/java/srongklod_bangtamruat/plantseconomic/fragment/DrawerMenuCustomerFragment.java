@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import srongklod_bangtamruat.plantseconomic.R;
@@ -44,6 +45,27 @@ public class DrawerMenuCustomerFragment extends Fragment{
         ,ints,strings);
         listView.setAdapter(drawerListViewAdapter);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                switch (i) {
+
+                    case 0:
+                        break;
+                    case 1:
+
+                        getActivity().getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.contentServiceFragment, new AddFriendCustomerFragment())
+                                .commit();
+
+                        break;
+                }//switch
+
+
+            }
+        });
 
     }
 
