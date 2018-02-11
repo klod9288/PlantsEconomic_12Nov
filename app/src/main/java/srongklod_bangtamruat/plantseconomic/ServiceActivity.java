@@ -1,5 +1,6 @@
 package srongklod_bangtamruat.plantseconomic;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -71,11 +73,29 @@ public class ServiceActivity extends AppCompatActivity {
 
     }   // Main Method
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_service,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
             return true;
+        }
 
+        if (item.getItemId()==R.id.itemSignOut) {
+
+            Intent intent = new Intent(ServiceActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -112,6 +132,8 @@ public class ServiceActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawerLayoutService);
         actionBarDrawerToggle = new ActionBarDrawerToggle(ServiceActivity.this,
                 drawerLayout,R.string.open,R.string.close);
+
+
 
     }
 

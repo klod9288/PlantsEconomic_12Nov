@@ -102,7 +102,9 @@ public class CustomerShowFragment extends Fragment {
                 }
             });
 
-            String urlImage = "https://firebasestorage.googleapis.com/v0/b/plantseconomic-217ea.appspot.com/o/Avatar%2FkIjgLgwvXVRaqNOO9j0xfJTC4R02?alt=media&token=ebda7139-8a11-4278-b7b8-3303f8a84cac";
+            String urlImage = "https://firebasestorage.googleapis.com/v0/b/" +
+                    "plantseconomic-217ea.appspot.com/o/" +
+                    "Avatar%2FkIjgLgwvXVRaqNOO9j0xfJTC4R02?alt=media&token=ebda7139-8a11-4278-b7b8-3303f8a84cac";
 
 
             circleImageView = getView().findViewById(R.id.imvAvatar);
