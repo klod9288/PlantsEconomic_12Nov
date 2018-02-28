@@ -9,19 +9,24 @@ import srongklod_bangtamruat.plantseconomic.R;
 public class Myconstan {
 
     private int[] iconCustomerInts = new int[]{
-            R.drawable.customer_home,R.drawable.customer_friend,
-            R.drawable.customer_message,R.drawable.customer_news,
-            R.drawable.customer_shops, R.drawable.customer_chat};
+            R.drawable.customer_home,
+            R.drawable.customer_friend,
+            R.drawable.customer_message,
+            R.drawable.customer_news,
+            R.drawable.customer_shops,
+            R.drawable.customer_chat};
 
     private int[] iconSupplier = new int[]{
-            R.drawable.customer_home,
-            R.drawable.customer_message,R.drawable.customer_news,
-            R.drawable.customer_shops};
+            R.drawable.supplier_home,
+            R.drawable.supplier_massage,
+            R.drawable.supplier_news,
+            R.drawable.supplier_shops};
 
     private int[] iconTransport = new int[]{
-            R.drawable.customer_home,
-            R.drawable.customer_message,R.drawable.customer_news,
-            R.drawable.customer_shops};
+            R.drawable.transport_home,
+            R.drawable.transport_msg,
+            R.drawable.transport_package,
+            R.drawable.transport_logistic};
 
     private String[] titleCustomerStrings = new String[]{"Home","AddFriend","Massage","News","Shops","Chat"};
 
