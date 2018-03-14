@@ -10,20 +10,18 @@ import android.os.Parcelable;
 
 public class CustomerModel implements Parcelable{
 
-    private String uidUserString, nameString, lastNameString, phoneString;
+    private String uidUserString, nameString, lastNameString, phoneString,avataString;
 
     public CustomerModel() {
 
     }
 
-    public CustomerModel(String uidUserString,
-                         String nameString,
-                         String lastNameString,
-                         String phoneString) {
+    public CustomerModel(String uidUserString, String nameString, String lastNameString, String phoneString, String avataString) {
         this.uidUserString = uidUserString;
         this.nameString = nameString;
         this.lastNameString = lastNameString;
         this.phoneString = phoneString;
+        this.avataString = avataString;
     }
 
     protected CustomerModel(Parcel in) {
@@ -31,6 +29,7 @@ public class CustomerModel implements Parcelable{
         nameString = in.readString();
         lastNameString = in.readString();
         phoneString = in.readString();
+        avataString = in.readString();
     }
 
     public static final Creator<CustomerModel> CREATOR = new Creator<CustomerModel>() {
@@ -77,16 +76,25 @@ public class CustomerModel implements Parcelable{
         this.phoneString = phoneString;
     }
 
+    public String getAvataString() {
+        return avataString;
+    }
+
+    public void setAvataString(String avataString) {
+        this.avataString = avataString;
+    }
+
     @Override
     public int describeContents() {
         return 0;
     }
 
     @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(uidUserString);
-        parcel.writeString(nameString);
-        parcel.writeString(lastNameString);
-        parcel.writeString(phoneString);
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(uidUserString);
+        dest.writeString(nameString);
+        dest.writeString(lastNameString);
+        dest.writeString(phoneString);
+        dest.writeString(avataString);
     }
 }   // Main Class

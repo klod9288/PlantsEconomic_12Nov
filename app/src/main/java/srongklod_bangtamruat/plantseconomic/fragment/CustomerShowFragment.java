@@ -60,6 +60,8 @@ public class CustomerShowFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        circleImageView = getView().findViewById(R.id.imvAvatar);
+
 //        Get Value From Activity
         getValueFromArgument();
 
@@ -80,17 +82,21 @@ public class CustomerShowFragment extends Fragment {
     private void showImage() {
 
         final String tag = "3JanV2";
+        String testImage = "kIjgLgwvXVRaqNOO9j0xfJTC4R02";
 
         try {
 
             FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
             StorageReference storageReference = firebaseStorage.getReference();
-            storageReference.child("Avatar/kIjgLgwvXVRaqNOO9j0xfJTC4R02.jpg").getDownloadUrl()
+            final String[] urlImage = new String[1];
+
+            storageReference.child("Avatar").child(testImage).getDownloadUrl()
                     .addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
-
+                            urlImage[0] = uri.toString();
                             Log.d(tag, "uri ==> " + uri.toString());
+                            showCircleImage(urlImage[0]);
 
                         }
                     }).addOnFailureListener(new OnFailureListener() {
@@ -102,18 +108,22 @@ public class CustomerShowFragment extends Fragment {
                 }
             });
 
-            String urlImage = "https://firebasestorage.googleapis.com/v0/b/" +
-                    "plantseconomic-217ea.appspot.com/o/" +
-                    "Avatar%2FkIjgLgwvXVRaqNOO9j0xfJTC4R02?alt=media&token=ebda7139-8a11-4278-b7b8-3303f8a84cac";
 
 
-            circleImageView = getView().findViewById(R.id.imvAvatar);
-            Picasso.with(getActivity()).load(urlImage).into(circleImageView);
 
         } catch (Exception e) {
+
             Log.d(tag, "e ==> " + e.toString());
+
         }
 
+
+    }
+
+    private void showCircleImage(String urlImage) {
+
+
+        Picasso.with(getActivity()).load(urlImage).into(circleImageView);
 
     }
 
