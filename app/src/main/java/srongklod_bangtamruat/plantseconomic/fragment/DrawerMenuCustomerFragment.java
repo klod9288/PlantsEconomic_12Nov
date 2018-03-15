@@ -86,7 +86,6 @@ public class DrawerMenuCustomerFragment extends Fragment{
                         break;
                 }//switch
 
-
             }
         });
 
