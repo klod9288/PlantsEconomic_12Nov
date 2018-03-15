@@ -329,6 +329,7 @@ public class ServiceActivity extends AppCompatActivity {
                             customerStrings[1] = customerModel1.getNameString();
                             customerStrings[2] = customerModel1.getPhoneString();
                             customerStrings[3] = customerModel1.getUidUserString();
+                            customerStrings[4] = customerModel1.getAvataString();
 
                             for (int i = 0; i < customerStrings.length; i += 1) {
                                 Log.d(tag, "custom[" + i + "] ==> " + customerStrings[i]);

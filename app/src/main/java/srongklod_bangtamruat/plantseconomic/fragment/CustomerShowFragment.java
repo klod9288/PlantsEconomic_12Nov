@@ -20,12 +20,16 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import srongklod_bangtamruat.plantseconomic.R;
@@ -90,7 +94,7 @@ public class CustomerShowFragment extends Fragment {
             StorageReference storageReference = firebaseStorage.getReference();
             final String[] urlImage = new String[1];
 
-            storageReference.child("Avatar").child(testImage).getDownloadUrl()
+            storageReference.child("Avatar").child(customerStrings[4]).getDownloadUrl()
                     .addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
@@ -152,6 +156,7 @@ public class CustomerShowFragment extends Fragment {
                         int indexAInt = random.nextInt(100);
                         String nameImageString = customerStrings[3] + "_" + Integer.toString(indexAInt);
 
+//                        Upload Image to Firebase
                         StorageReference reference = storageReference.child("Avatar/" + nameImageString);
                         reference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
@@ -183,7 +188,21 @@ public class CustomerShowFragment extends Fragment {
                             }
                         });
 
+//                        Edit Field of AvatarString
+                        Map<String, Object> stringObjectMap = new HashMap<>();
+                        stringObjectMap.put("avataString", nameImageString);
+
+                        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                        DatabaseReference databaseReference = firebaseDatabase.getReference();
+                        databaseReference.child("Customer").child(customerStrings[3])
+                                .updateChildren(stringObjectMap);
+
+                        customerStrings[4] = nameImageString;
+
+
+
                     } catch (Exception e) {
+
                         Log.d(tag, "e ==>" + toString());
 
                     }
@@ -255,7 +274,10 @@ public class CustomerShowFragment extends Fragment {
     }
 
     private void getValueFromArgument() {
+
         customerStrings = getArguments().getStringArray("Customer");
+        Log.d("14MarchV1", "customer[4] ==>" + customerStrings[4]);
+
     }
 
     @Nullable
