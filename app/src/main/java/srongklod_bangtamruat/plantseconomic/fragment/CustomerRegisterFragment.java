@@ -291,6 +291,8 @@ public class CustomerRegisterFragment extends Fragment {
 
         progressDialog.dismiss();
 
+        firebaseAuth.signOut();
+
         Toast.makeText(getActivity(), "Register Success",
                 Toast.LENGTH_SHORT).show();
 

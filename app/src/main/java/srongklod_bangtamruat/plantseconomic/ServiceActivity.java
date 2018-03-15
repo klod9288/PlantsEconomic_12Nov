@@ -342,8 +342,8 @@ public class ServiceActivity extends AppCompatActivity {
 
 //                            Add Menu for Drawer
                             getSupportFragmentManager().beginTransaction()
-                                    .add(R.id.contentDrawerMenuFragment,
-                                            new DrawerMenuCustomerFragment()).commit();
+                                    .add(R.id.contentDrawerMenuFragment, DrawerMenuCustomerFragment.drawerMenuCustomerInstance(customerStrings))
+                                    .commit();
 
 //                            Add Content of Fragment
                             getSupportFragmentManager().beginTransaction()
@@ -370,12 +370,14 @@ public class ServiceActivity extends AppCompatActivity {
     }
 
     private void findUserUid() {
+
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
         userUidString = firebaseUser.getUid();
         String disPlayName = firebaseUser.getDisplayName();
         Log.d(tag, "at Service userUid ==> " + userUidString);
         Log.d(tag, "disPlayName ==> " + disPlayName);
+
     }
 
 
