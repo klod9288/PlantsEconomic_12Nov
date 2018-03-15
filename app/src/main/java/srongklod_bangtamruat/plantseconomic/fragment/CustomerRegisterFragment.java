@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -29,6 +30,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.util.Random;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import srongklod_bangtamruat.plantseconomic.R;
@@ -220,14 +226,40 @@ public class CustomerRegisterFragment extends Fragment {
 
     private void registerSuccess() {
 
-        final String tag = "27DecV1";
+        final String tag = "15MarchV1";
 
 //        Find uid of Current User
         firebaseUser = firebaseAuth.getCurrentUser();
         uidUserString = firebaseUser.getUid();
-        Log.d(tag, "uid User ==> " + uidUserString);
+        Log.d(tag, "uidUserString from getCurrentUser ==> " + uidUserString);
+
+//        Create Name of Image
+        Random random = new Random();
+        int i = random.nextInt(1000);
+        String nameImageString = uidUserString + "_" + Integer.toString(i);
+        Log.d(tag, "nameImageString ==>" + nameImageString);
 
 
+//        Upload Image to Firebase
+        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+        StorageReference storageReference = firebaseStorage.getReference();
+        StorageReference storageReference1=storageReference.child("Avata/"+nameImageString);
+        storageReference1.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+
+
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+                Log.d(tag, "e OnFailure ==>" + e.toString());
+
+            }
+        });
 
 
 //        Setup Model
@@ -236,7 +268,8 @@ public class CustomerRegisterFragment extends Fragment {
                 nameString,
                 surNameString,
                 phoneString,
-                "avatar.png");
+                nameImageString);
+
 
         userProfileChangeRequest = new UserProfileChangeRequest
                 .Builder()
@@ -256,14 +289,17 @@ public class CustomerRegisterFragment extends Fragment {
             }
         });
 
+        progressDialog.dismiss();
 
         Toast.makeText(getActivity(), "Register Success",
                 Toast.LENGTH_SHORT).show();
-        progressDialog.dismiss();
 
 
         getActivity().getSupportFragmentManager().popBackStack();
-    }
+
+
+    }//Register Success
+
 
     private boolean checkSpace() {
         return nameString.equals("")
