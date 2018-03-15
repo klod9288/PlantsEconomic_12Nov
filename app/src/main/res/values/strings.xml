@@ -25,9 +25,10 @@
 
     <string name="open">Open drawer</string>
     <string name="close">Close drawer</string>
+    <string name="title_Choose_image">Non Choose Image</string>
     <string name="message_choose_image">Please Choose App Choose Image</string>
-
     <string name="message_success">Thank You Upload Image Success</string>
+    <string name="title_connot_register">Cannot Register</string>
 
 
 </resources>

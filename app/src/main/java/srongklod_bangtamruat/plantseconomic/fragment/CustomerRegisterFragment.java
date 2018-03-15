@@ -51,6 +51,7 @@ public class CustomerRegisterFragment extends Fragment {
     private ProgressDialog progressDialog;
     private CircleImageView circleImageView;
     private Uri uri;
+    private boolean circleImageABoolean = true;
 
 
     @Override
@@ -74,6 +75,7 @@ public class CustomerRegisterFragment extends Fragment {
         if (resultCode==getActivity().RESULT_OK) {
 
             uri = data.getData();
+            circleImageABoolean = false;
 
 //            Setup Image to CircleImageView
             try {
@@ -113,8 +115,10 @@ public class CustomerRegisterFragment extends Fragment {
     }
 
     private void saveController() {
+
         Button button = getView().findViewById(R.id.btnSaveCustomer);
         button.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
 
@@ -134,12 +138,19 @@ public class CustomerRegisterFragment extends Fragment {
 
 //                Check Space
                 if (checkSpace()) {
+
 //                    HaveSpec
                     MyAlert myAlert = new MyAlert(getActivity());
                     myAlert.nomalDialog(getResources().getString(R.string.title_have_space),
                             getResources().getString(R.string.massage_have_space));
+
+                } else if (circleImageABoolean) {
+//                    Non Choose Image
+                    MyAlert myAlert = new MyAlert(getActivity());
+                    myAlert.nomalDialog(getResources().getString(R.string.title_Choose_image),
+                            getResources().getString(R.string.message_choose_image));
+
                 } else {
-//                    NO Space
                     confirmValue();
                 }
 
@@ -198,7 +209,7 @@ public class CustomerRegisterFragment extends Fragment {
 //                            Something Error
                             String resultError = task.getException().getMessage();
                             MyAlert myAlert = new MyAlert(getActivity());
-                            myAlert.nomalDialog("Cannot Register", resultError);
+                            myAlert.nomalDialog(getString(R.string.title_connot_register), resultError);
 
                         }
 
@@ -215,6 +226,9 @@ public class CustomerRegisterFragment extends Fragment {
         firebaseUser = firebaseAuth.getCurrentUser();
         uidUserString = firebaseUser.getUid();
         Log.d(tag, "uid User ==> " + uidUserString);
+
+
+
 
 //        Setup Model
         customerModel = new CustomerModel(
