@@ -1,7 +1,12 @@
 package srongklod_bangtamruat.plantseconomic.fragment;
 
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -25,6 +30,7 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import srongklod_bangtamruat.plantseconomic.R;
 import srongklod_bangtamruat.plantseconomic.utility.CustomerModel;
 import srongklod_bangtamruat.plantseconomic.utility.MyAlert;
@@ -43,6 +49,8 @@ public class CustomerRegisterFragment extends Fragment {
     private FirebaseUser firebaseUser;
     private UserProfileChangeRequest userProfileChangeRequest;
     private ProgressDialog progressDialog;
+    private CircleImageView circleImageView;
+    private Uri uri;
 
 
     @Override
@@ -52,8 +60,57 @@ public class CustomerRegisterFragment extends Fragment {
 //        Save Controller
         saveController();
 
+//        CircleImageView Controller
+        circleImageController();
+
+
 
     }//Main Method
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode==getActivity().RESULT_OK) {
+
+            uri = data.getData();
+
+//            Setup Image to CircleImageView
+            try {
+
+                Bitmap bitmap = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(uri));
+                circleImageView.setImageBitmap(bitmap);
+
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+
+
+            }
+
+
+        }//if
+
+
+    }//onActivityResult
+
+    private void circleImageController() {
+        circleImageView = getView().findViewById(R.id.imvAvatar);
+        circleImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                startActivityForResult(Intent.createChooser(intent, "Please Choose App"),1);
+
+
+
+
+            }
+        });
+    }
 
     private void saveController() {
         Button button = getView().findViewById(R.id.btnSaveCustomer);
@@ -184,7 +241,6 @@ public class CustomerRegisterFragment extends Fragment {
 
             }
         });
-
 
 
         Toast.makeText(getActivity(), "Register Success",
