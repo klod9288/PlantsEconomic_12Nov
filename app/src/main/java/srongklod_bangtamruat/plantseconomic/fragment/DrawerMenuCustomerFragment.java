@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import srongklod_bangtamruat.plantseconomic.R;
+import srongklod_bangtamruat.plantseconomic.ServiceActivity;
 import srongklod_bangtamruat.plantseconomic.utility.DrawerListViewAdapter;
 import srongklod_bangtamruat.plantseconomic.utility.Myconstan;
 
@@ -22,23 +23,10 @@ public class DrawerMenuCustomerFragment extends Fragment{
 
     private String[] loginStrings;
 
-    public static DrawerMenuCustomerFragment drawerMenuCustomerInstance(String[] loginStrings) {
-
-        DrawerMenuCustomerFragment drawerMenuCustomerFragment = new DrawerMenuCustomerFragment();
-        Bundle bundle = new Bundle();
-        bundle.putStringArray("Login",loginStrings);
-        drawerMenuCustomerFragment.setArguments(bundle);
-        return drawerMenuCustomerFragment;
-
-    }
-
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-//        Get Value From Argument
-        loginStrings = getArguments().getStringArray("Login");
 
 
 //        Create ListView
@@ -72,7 +60,7 @@ public class DrawerMenuCustomerFragment extends Fragment{
 
                         getActivity().getSupportFragmentManager()
                                 .beginTransaction()
-                                .replace(R.id.contentServiceFragment, CustomerShowFragment.customerShowInstance(loginStrings))
+                                .replace(R.id.contentServiceFragment, new CustomerShowFragment())
                                 .commit();
 
                         break;
@@ -85,6 +73,8 @@ public class DrawerMenuCustomerFragment extends Fragment{
 
                         break;
                 }//switch
+
+                ((ServiceActivity)getActivity()).myCloseDrawer();
 
             }
         });

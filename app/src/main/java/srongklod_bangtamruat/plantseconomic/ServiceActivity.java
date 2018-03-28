@@ -1,6 +1,7 @@
 package srongklod_bangtamruat.plantseconomic;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
@@ -72,6 +73,10 @@ public class ServiceActivity extends AppCompatActivity {
         createToolbar();
 
     }   // Main Method
+
+    public void myCloseDrawer() {
+        drawerLayout.closeDrawers();
+    }
 
 
     @Override
@@ -330,6 +335,7 @@ public class ServiceActivity extends AppCompatActivity {
                             customerStrings[2] = customerModel1.getPhoneString();
                             customerStrings[3] = customerModel1.getUidUserString();
                             customerStrings[4] = customerModel1.getAvataString();
+                            customerStrings[5] = customerModel1.getUrlImageString();
 
                             for (int i = 0; i < customerStrings.length; i += 1) {
                                 Log.d(tag, "custom[" + i + "] ==> " + customerStrings[i]);
@@ -342,13 +348,19 @@ public class ServiceActivity extends AppCompatActivity {
 
 //                            Add Menu for Drawer
                             getSupportFragmentManager().beginTransaction()
-                                    .add(R.id.contentDrawerMenuFragment, DrawerMenuCustomerFragment.drawerMenuCustomerInstance(customerStrings))
+                                    .add(R.id.contentDrawerMenuFragment, new DrawerMenuCustomerFragment())
                                     .commit();
+
+                            ArrayList<String> stringArrayList = new ArrayList<>();
+                            for (int i=0;i<customerStrings.length;i+=1) {
+                                stringArrayList.add(customerStrings[i]);
+                            }
+
+                            saveLoginOnSharePreference(stringArrayList.toString());
 
 //                            Add Content of Fragment
                             getSupportFragmentManager().beginTransaction()
-                                    .add(R.id.contentServiceFragment,
-                                            CustomerShowFragment.customerShowInstance(customerStrings))
+                                    .add(R.id.contentServiceFragment, new CustomerShowFragment())
                                     .commit();
 
                         }   // if
@@ -367,6 +379,15 @@ public class ServiceActivity extends AppCompatActivity {
 
 
         }   // if
+    }
+
+    private void saveLoginOnSharePreference(String loginString) {
+
+        SharedPreferences sharedPreferences = getSharedPreferences("LoginFile", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("Login",loginString);
+        editor.commit();
+
     }
 
     private void findUserUid() {

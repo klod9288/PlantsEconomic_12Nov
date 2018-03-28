@@ -46,36 +46,15 @@ public class CustomerShowFragment extends Fragment {
 
     private String[] customerStrings;
 
-    public static CustomerShowFragment customerShowInstance(String[] customerStrings) {
-
-        CustomerShowFragment customerShowFragment = new CustomerShowFragment();
-        Bundle bundle = new Bundle();
-        bundle.putStringArray("Customer", customerStrings);
-        customerShowFragment.setArguments(bundle);
-        return customerShowFragment;
-
-    }
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
 
 
-//        Get Value From Activity
-        getValueFromArgument();
-
-
     }//Main Method
 
 
-
-    private void getValueFromArgument() {
-
-        customerStrings = getArguments().getStringArray("Customer");
-        Log.d("14MarchV1", "customer[4] ==>" + customerStrings[4]);
-
-    }
 
     @Nullable
     @Override

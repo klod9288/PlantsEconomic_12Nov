@@ -49,7 +49,8 @@ public class Myconstan {
             "nameString",
             "phoneString",
             "uidUserString",
-            "avataString"};
+            "avataString",
+            "urlImageString"};
 
     private String[] fieldSupplierStrings = new String[]{
             "addressString ",
