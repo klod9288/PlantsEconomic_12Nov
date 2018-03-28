@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -48,7 +50,20 @@ public class AddFriendCustomerFragment extends Fragment{
 //        Read all child Customer
         readAllChildCustomer();
 
+//        Create ListView
+        createListView();
+
+
     }//Main Method
+
+    private void createListView() {
+        ListView listView = getView().findViewById(R.id.lisViewAddFriend);
+
+        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<String>(getActivity(),
+                android.R.layout.simple_list_item_1, displayStringArrayList);
+        listView.setAdapter(stringArrayAdapter);
+
+    }
 
 
     private ArrayList<String> collectItem(Map<String,Object>objectMap,String chilString) {
