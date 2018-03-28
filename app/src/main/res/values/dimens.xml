@@ -6,4 +6,5 @@
     <dimen name="icon_ListView">48dp</dimen>
     <dimen name="padding">15dp</dimen>
     <dimen name="avatar">150dp</dimen>
+    <dimen name="icon1">80dp</dimen>
 </resources>

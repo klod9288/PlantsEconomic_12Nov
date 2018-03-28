@@ -8,6 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 import srongklod_bangtamruat.plantseconomic.R;
 
 /**
@@ -17,15 +20,14 @@ import srongklod_bangtamruat.plantseconomic.R;
 public class AddFriendAdapter extends BaseAdapter{
 
     private Context context;
-    private String[] nameStrings;
-    private int[] iconInts;
+    private String[] nameStrings,surNameStrings,imageStrings;
 
-    public AddFriendAdapter(Context context,
-                            String[] nameStrings,
-                            int[] iconInts) {
+
+    public AddFriendAdapter(Context context, String[] nameStrings, String[] surNameStrings, String[] imageStrings) {
         this.context = context;
         this.nameStrings = nameStrings;
-        this.iconInts = iconInts;
+        this.surNameStrings = surNameStrings;
+        this.imageStrings = imageStrings;
     }
 
     @Override
@@ -46,15 +48,17 @@ public class AddFriendAdapter extends BaseAdapter{
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view1 = layoutInflater.inflate(R.layout.layout_listview_add_friend, viewGroup, false);
+        View view1 = layoutInflater.inflate(R.layout.listview_add_friend, viewGroup, false);
 
-        TextView textView= view1.findViewById(R.id.txtShowName);
-        textView.setText(nameStrings[i]);
-
-        ImageView imageView = view1.findViewById(R.id.imvIcon);
-        imageView.setImageResource(iconInts[i]);
+        TextView nameTextView= view1.findViewById(R.id.txtName);
+        nameTextView.setText(nameStrings[i]);
 
 
+        TextView surTextView = view1.findViewById(R.id.txtsurName);
+        surTextView.setText(surNameStrings[i]);
+
+        CircleImageView circleImageView = view1.findViewById(R.id.cirImvIcon);
+        Picasso.with(context).load(imageStrings[i]).into(circleImageView);
 
         return view1;
     }
