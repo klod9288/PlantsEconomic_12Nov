@@ -17,9 +17,10 @@
             android:layout_width="@dimen/icon1"
             android:layout_height="@dimen/icon1" />
 
+        <!--Content-->
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent">
 
             <!--Name-->
@@ -43,6 +44,20 @@
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_margin="@dimen/margin"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_action_add_friend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
 
     </LinearLayout>
 
