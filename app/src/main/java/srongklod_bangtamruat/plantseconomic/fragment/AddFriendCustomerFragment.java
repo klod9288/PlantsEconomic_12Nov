@@ -211,6 +211,11 @@ public class AddFriendCustomerFragment extends Fragment{
 
             databaseReference.child(uidFriendString).setValue(postModel);
 
+            getActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.contentServiceFragment, new CustomerShowFragment())
+                    .commit();
+
 
         }//if
 
