@@ -202,7 +202,7 @@ public class AddFriendCustomerFragment extends Fragment{
             String dateTimeString = dateFormat.format(calendar.getTime());
             String postString = "Start Add Friend";
 
-            PostModel postModel = new PostModel(dateTimeString, postString);
+            PostModel postModel = new PostModel(dateTimeString, postString,uidFriendString);
 
 //            Process add friend
             FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();

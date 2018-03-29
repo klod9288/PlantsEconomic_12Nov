@@ -1,14 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--Content Customer-->
-   <TextView
-       android:textSize="@dimen/h1"
-       android:text="Show TimeLine Friend"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content" />
+    <!--Content ShowFriend-->
+    <LinearLayout
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/listViewShowFriend"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+
+        </ListView>
+
+
+    </LinearLayout>
+
+    <!--Content ShowTimeline-->
+    <LinearLayout
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="match_parent">
+
+
+    </LinearLayout>
 
 
 </LinearLayout>
