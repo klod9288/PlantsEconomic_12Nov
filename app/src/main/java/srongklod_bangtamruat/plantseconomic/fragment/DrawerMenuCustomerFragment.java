@@ -57,7 +57,7 @@ public class DrawerMenuCustomerFragment extends Fragment{
                 switch (i) {
 
                     case 0:
-
+//                        for Home
                         getActivity().getSupportFragmentManager()
                                 .beginTransaction()
                                 .replace(R.id.contentServiceFragment, new CustomerShowFragment())
@@ -65,11 +65,20 @@ public class DrawerMenuCustomerFragment extends Fragment{
 
                         break;
                     case 1:
-
+//                        for Friend
                         getActivity().getSupportFragmentManager()
                                 .beginTransaction()
                                 .replace(R.id.contentServiceFragment, new AddFriendCustomerFragment())
                                 .commit();
+
+                        break;
+                    case 2:
+//                        for Message
+                        break;
+                    case 3:
+//                        for News
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.contentServiceFragment,
+                                new NewsFragment()).commit();
 
                         break;
                 }//switch
