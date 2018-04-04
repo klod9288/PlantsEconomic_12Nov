@@ -45,6 +45,7 @@ import srongklod_bangtamruat.plantseconomic.ServiceActivity;
 import srongklod_bangtamruat.plantseconomic.utility.MyAlert;
 import srongklod_bangtamruat.plantseconomic.utility.MyChangeArrayListToArray;
 import srongklod_bangtamruat.plantseconomic.utility.PostModel;
+import srongklod_bangtamruat.plantseconomic.utility.ShowTimeLineAdapter;
 
 /**
  * Created by Administrator on 30/12/2560.
@@ -162,17 +163,32 @@ public class CustomerShowFragment extends Fragment {
                 String[] showNameStrings = myChangeArrayListToArray.myArray(nameStringArrayList.toString());
                 String[] showSurNameStrings = myChangeArrayListToArray.myArray(surStringArrayList.toString());
                 String[] showImageStrings = myChangeArrayListToArray.myArray(imageStringArrayList.toString());
+                String[] showMessageString = new String[nameStringArrayList.size()];
+                String[] showDateString = new String[nameStringArrayList.size()];
+
+
 
                 if (timesAnInt<amountFriendAnInt) {
 
 
                  for (int i=0;i<showNameStrings.length;i+=1) {
 
-                 Log.d("4AprilV2", "Name["+i+"] ==> "+showNameStrings[i]);
-                 Log.d("4AprilV2", "SurName["+i+"] ==> "+showSurNameStrings[i]);
-                 Log.d("4AprilV2", "Image[" + i + "] ==> " + showImageStrings[i]);
+                     Log.d("4AprilV2", "Name["+i+"] ==> "+showNameStrings[i]);
+                     Log.d("4AprilV2", "SurName["+i+"] ==> "+showSurNameStrings[i]);
+                     Log.d("4AprilV2", "Image[" + i + "] ==> " + showImageStrings[i]);
+
+                     showMessageString[i] = "Test Message";
+                     showDateString[i] = "4-04-2018 09:56";
 
                  }
+
+                    ListView listView = getView().findViewById(R.id.listViewShowFriend);
+                    ShowTimeLineAdapter showTimeLineAdapter = new ShowTimeLineAdapter(
+                            getActivity(),showImageStrings,
+                            showNameStrings,showSurNameStrings,
+                            showMessageString,showDateString);
+                    listView.setAdapter(showTimeLineAdapter);
+
 
                 } else {
                     timesAnInt += 1;
