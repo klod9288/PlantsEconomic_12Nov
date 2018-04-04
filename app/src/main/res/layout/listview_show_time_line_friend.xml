@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:padding="1dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!--Image and Name-->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+            <!--Icon-->
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/cirImvIcon"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/avatar"
+                android:layout_margin="10dp"
+                android:layout_width="@dimen/icon1"
+                android:layout_height="@dimen/icon1" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <!--Name-->
+                <TextView
+                    android:id="@+id/txtName"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/h1"
+                    android:text="Name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <!--surName-->
+                <TextView
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/txtsurName"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="italic"
+                    android:textSize="@dimen/h2"
+                    android:text="surName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <!--Content-->
+        <RelativeLayout
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+            <!--Message-->
+            <TextView
+                android:maxLines="3"
+                android:ellipsize="end"
+                android:id="@+id/txtMessage"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/h2"
+                android:text="Message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+            <!--Date-->
+            <TextView
+                android:textStyle="italic"
+                android:id="@+id/txtShowDate"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/h2"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:text="dd-MM-yyyy HH:mm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

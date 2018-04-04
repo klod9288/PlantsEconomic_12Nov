@@ -56,11 +56,16 @@ public class CustomerShowFragment extends Fragment {
 
     private String[] loginStrings,nameFriendStrings,surNameFriendStrings,imageFriendStrings;
     private String[] strings=new String[3];
+    private ArrayList<String>nameStringArrayList,surStringArrayList, imageStringArrayList;
+    private int amountFriendAnInt,timesAnInt=0;
 
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+//        Setup ArrayList
+        setupArrayList();
 
 //            Find uid Login
         findUidLogin();
@@ -70,6 +75,14 @@ public class CustomerShowFragment extends Fragment {
 
 
     }//Main Method
+
+    private void setupArrayList() {
+
+        nameStringArrayList = new ArrayList<>();
+        surStringArrayList = new ArrayList<>();
+        imageStringArrayList = new ArrayList<>();
+
+    }
 
     private void createListFriend() {
 
@@ -84,6 +97,7 @@ public class CustomerShowFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 int i = (int) dataSnapshot.getChildrenCount();
+                amountFriendAnInt = i;
                 List list = new ArrayList();
 
                 nameFriendStrings = new String[i];
@@ -102,26 +116,25 @@ public class CustomerShowFragment extends Fragment {
 
                     findNameSurnameImage(uidFriend);
 
-                    nameFriendStrings[countInts[0]] = strings[0];
-                    surNameFriendStrings[countInts[0]] = strings[1];
-                    imageFriendStrings[countInts[0]] = strings[2];
-
-                    Log.d("29MarchV3", "name [" + countInts[0 ]+ "] ==> " + nameFriendStrings);
 
                     countInts[0] += 1;
 
                 }//for
+
+                Log.d("4AprilV1", "NameArrayList ==>" + nameStringArrayList.toString());
 
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+
             }
         });
 
 
-    }
+
+    }//CreateList Friend
 
     private void findNameSurnameImage(String uidFriend) {
 
@@ -129,7 +142,7 @@ public class CustomerShowFragment extends Fragment {
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference()
-                .child("Customer").child("uidFriend");
+                .child("Customer").child(uidFriend.trim());
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -139,14 +152,43 @@ public class CustomerShowFragment extends Fragment {
                 strings[1] = String.valueOf(map.get("lastNameString"));
                 strings[2] = String.valueOf(map.get("urlImageString"));
 
+                Log.d("29MarchV3", "map ==>" + map.toString());
+
+                nameStringArrayList.add(strings[0]);
+                surStringArrayList.add(strings[1]);
+                imageStringArrayList.add(strings[2]);
+
+                MyChangeArrayListToArray myChangeArrayListToArray = new MyChangeArrayListToArray(getActivity());
+                String[] showNameStrings = myChangeArrayListToArray.myArray(nameStringArrayList.toString());
+                String[] showSurNameStrings = myChangeArrayListToArray.myArray(surStringArrayList.toString());
+                String[] showImageStrings = myChangeArrayListToArray.myArray(imageStringArrayList.toString());
+
+                if (timesAnInt<amountFriendAnInt) {
+
+
+                 for (int i=0;i<showNameStrings.length;i+=1) {
+
+                 Log.d("4AprilV2", "Name["+i+"] ==> "+showNameStrings[i]);
+                 Log.d("4AprilV2", "SurName["+i+"] ==> "+showSurNameStrings[i]);
+                 Log.d("4AprilV2", "Image[" + i + "] ==> " + showImageStrings[i]);
+
+                 }
+
+                } else {
+                    timesAnInt += 1;
+                }
 
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+                Log.d("29MarchV3", "Error on findNameSurnameImage ==>" + databaseError.toString());
+
             }
         });
+
+
 
     }
 
