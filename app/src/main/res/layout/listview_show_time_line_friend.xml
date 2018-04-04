@@ -65,6 +65,7 @@
 
             <!--Message-->
             <TextView
+                android:layout_alignParentRight="true"
                 android:maxLines="3"
                 android:ellipsize="end"
                 android:id="@+id/txtMessage"
