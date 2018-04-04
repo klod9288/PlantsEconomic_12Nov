@@ -27,7 +27,7 @@
                 android:layout_height="@dimen/icon1" />
 
             <LinearLayout
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
