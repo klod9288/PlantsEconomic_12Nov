@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <!--Lift Layout-->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:padding="10dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content">
+
+        <!--Name-->
+        <TextView
+            android:id="@+id/txtName"
+            android:text="@string/name"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/h1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <!--description-->
+        <TextView
+            android:id="@+id/txtDescription"
+            android:lines="3"
+            android:ellipsize="end"
+            android:text="@string/description"
+            android:textStyle="italic"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/h2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <!--Price-->
+        <TextView
+            android:id="@+id/txtPrice"
+            android:text="@string/price"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/h1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+
+    </LinearLayout>
+
+    <!--Right Layout-->
+    <LinearLayout
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content">
+
+        <!--Image-->
+        <ImageView
+            android:id="@+id/imvProduct"
+            android:src="@drawable/shop1"
+            android:scaleType="centerInside"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <!--Stock-->
+        <TextView
+            android:id="@+id/txtStock"
+            android:text="@string/stock"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/h1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

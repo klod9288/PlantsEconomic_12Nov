@@ -74,7 +74,7 @@ public class DrawerMenuSupplierFragment extends Fragment {
 
                         getActivity().getSupportFragmentManager()
                                 .beginTransaction()
-                                .replace(R.id.contentServiceFragment, new AddShopFragment())
+                                .replace(R.id.contentServiceFragment, new ShopSupplierFragment())
                                 .commit();
 
                         break;
