@@ -3,9 +3,144 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <!--Content-->
+    <ScrollView
+        android:layout_above="@id/btnAddShop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!--Image-->
+            <ImageView
+                android:id="@+id/imvAddShop"
+                android:src="@drawable/shop1"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="@dimen/margin"
+                android:scaleType="fitCenter"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/avatar" />
+
+            <!--Name-->
+            <LinearLayout
+                android:layout_marginLeft="@dimen/margin"
+                android:layout_marginRight="@dimen/margin"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!--Icon-->
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_action_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <!--TextField-->
+                <EditText
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textColorHint="@color/colorPrimaryHint"
+                    android:hint="@string/name"
+                    android:inputType="text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <!--Description-->
+            <LinearLayout
+                android:layout_marginLeft="@dimen/margin"
+                android:layout_marginRight="@dimen/margin"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!--Icon-->
+                <ImageView
+                    android:layout_gravity="top"
+                    android:src="@drawable/ic_action_business"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <!--TextField-->
+                <EditText
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textColorHint="@color/colorPrimaryHint"
+                    android:hint="@string/description"
+                    android:lines="3"
+                    android:gravity="top"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <!--Price-->
+            <LinearLayout
+                android:layout_marginLeft="@dimen/margin"
+                android:layout_marginRight="@dimen/margin"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!--Icon-->
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_action_password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <!--TextField-->
+                <EditText
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textColorHint="@color/colorPrimaryHint"
+                    android:hint="@string/price"
+                    android:inputType="numberDecimal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <!--Stock-->
+            <LinearLayout
+                android:layout_marginLeft="@dimen/margin"
+                android:layout_marginRight="@dimen/margin"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!--Icon-->
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_action_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <!--TextField-->
+                <EditText
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textColorHint="@color/colorPrimaryHint"
+                    android:hint="stock"
+                    android:inputType="text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <!--Button Add-->
+    <Button
+        android:id="@+id/btnAddShop"
         android:text="Add Shop"
-        android:layout_width="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
 </RelativeLayout>
