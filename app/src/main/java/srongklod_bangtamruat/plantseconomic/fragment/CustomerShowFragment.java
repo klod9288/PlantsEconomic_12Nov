@@ -143,7 +143,7 @@ public class CustomerShowFragment extends Fragment {
 
     }//CreateList Friend
 
-    private void findNameSurnameImage(String uidFriend) {
+    private void findNameSurnameImage(final String uidFriend) {
 
         final String[] strings = new String[3];
 
@@ -183,10 +183,11 @@ public class CustomerShowFragment extends Fragment {
                      Log.d("4AprilV2", "SurName["+i+"] ==> "+showSurNameStrings[i]);
                      Log.d("4AprilV2", "Image[" + i + "] ==> " + showImageStrings[i]);
 
-                     showMessageString[i] = "Test Message";
+                     showMessageString[i] = findMessage(uidFriend.trim());
                      showDateString[i] = "4-04-2018 09:56";
 
-                 }
+                     timesAnInt += 1;
+                 }//for
 
                     ListView listView = getView().findViewById(R.id.listViewShowFriend);
                     ShowTimeLineAdapter showTimeLineAdapter = new ShowTimeLineAdapter(
@@ -196,9 +197,10 @@ public class CustomerShowFragment extends Fragment {
                     listView.setAdapter(showTimeLineAdapter);
 
 
-                } else {
-                    timesAnInt += 1;
-                }
+
+                } //if
+
+
 
             }
 
@@ -212,6 +214,13 @@ public class CustomerShowFragment extends Fragment {
 
 
 
+    }//findName
+
+    private String findMessage(String uidFriendString) {
+
+        Log.d("4AprilV4", "uidFriendString"+uidFriendString);
+
+        return null;
     }
 
     private void findUidLogin() {

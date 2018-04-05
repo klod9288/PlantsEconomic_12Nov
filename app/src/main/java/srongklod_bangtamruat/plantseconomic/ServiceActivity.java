@@ -273,11 +273,18 @@ public class ServiceActivity extends AppCompatActivity {
                                     .add(R.id.contentDrawerMenuFragment, new DrawerMenuSupplierFragment())
                                     .commit();
 
+                            ArrayList<String> stringArrayList = new ArrayList<>();
+                            for (int i1=0;i1<supplyStrings.length;i1+=1) {
+                                stringArrayList.add(supplyStrings[i1]);
+                            }
+
+                            saveLoginOnSharePreference(stringArrayList.toString());
+
 
 //                            Add Fragment
                             getSupportFragmentManager()
                                     .beginTransaction()
-                                    .add(R.id.contentServiceFragment, SupplierShowFragment.supplierShowInstance(supplyStrings))
+                                    .add(R.id.contentServiceFragment, new SupplierShowFragment())
                                     .commit();
 
                         }   // if

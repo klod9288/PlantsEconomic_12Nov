@@ -1,5 +1,7 @@
 package srongklod_bangtamruat.plantseconomic.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import srongklod_bangtamruat.plantseconomic.R;
+import srongklod_bangtamruat.plantseconomic.utility.MyChangeArrayListToArray;
 
 /**
  * Created by Administrator on 30/12/2560.
@@ -19,20 +22,13 @@ public class SupplierShowFragment extends Fragment{
 
     private String[] supplierStrings;
 
-    public static SupplierShowFragment supplierShowInstance(String[] supplierStrings) {
-        SupplierShowFragment supplierShowFragment = new SupplierShowFragment();
-        Bundle bundle = new Bundle();
-        bundle.putStringArray("Supplier",supplierStrings);
-        supplierShowFragment.setArguments(bundle);
-        return supplierShowFragment;
-    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-//        Get Value From Activity
-        supplierStrings = getArguments().getStringArray("Supplier");
+//        Get Value From sharedPreferences
+        getValueFromSharePreferece();
 
 //        Show Text
 
@@ -40,6 +36,16 @@ public class SupplierShowFragment extends Fragment{
 
 
     }//Mani Activity
+
+    private void getValueFromSharePreferece() {
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("LoginFile", Context.MODE_PRIVATE);
+        String result = sharedPreferences.getString("Login", null);
+
+        MyChangeArrayListToArray myChangeArrayListToArray = new MyChangeArrayListToArray(getActivity());
+        supplierStrings = myChangeArrayListToArray.myArray(result);
+
+    }
 
     private void showText() {
 

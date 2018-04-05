@@ -7,9 +7,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import srongklod_bangtamruat.plantseconomic.R;
+import srongklod_bangtamruat.plantseconomic.ServiceActivity;
 import srongklod_bangtamruat.plantseconomic.utility.DrawerListViewAdapter;
 import srongklod_bangtamruat.plantseconomic.utility.Myconstan;
 
@@ -17,7 +19,7 @@ import srongklod_bangtamruat.plantseconomic.utility.Myconstan;
  * Created by Administrator on 14/1/2561.
  */
 
-public class DrawerMenuSupplierFragment extends Fragment{
+public class DrawerMenuSupplierFragment extends Fragment {
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -45,6 +47,45 @@ public class DrawerMenuSupplierFragment extends Fragment{
                 ints,
                 strings);
         listView.setAdapter(drawerListViewAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                switch (position) {
+
+                    case 0:
+//                        Home
+
+                        getActivity().getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.contentServiceFragment, new SupplierShowFragment())
+                                .commit();
+
+                        break;
+                    case 1:
+//                        Message
+                        break;
+                    case 2:
+//                        News
+                        break;
+                    case 3:
+//                        Shop
+
+                        getActivity().getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.contentServiceFragment, new ShopSupplierFragment())
+                                .commit();
+
+                        break;
+
+
+                }//switch
+
+                ((ServiceActivity) getActivity()).myCloseDrawer();
+
+            }//onItemClick
+        });
 
 
     }
