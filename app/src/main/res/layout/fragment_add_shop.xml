@@ -41,6 +41,7 @@
 
                 <!--TextField-->
                 <EditText
+                    android:id="@+id/edtName"
                     android:textColor="@color/colorPrimaryDark"
                     android:textColorHint="@color/colorPrimaryHint"
                     android:hint="@string/name"
@@ -61,12 +62,13 @@
                 <!--Icon-->
                 <ImageView
                     android:layout_gravity="top"
-                    android:src="@drawable/ic_action_business"
+                    android:src="@drawable/ic_action_descrip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <!--TextField-->
                 <EditText
+                    android:id="@+id/edtDescription"
                     android:textColor="@color/colorPrimaryDark"
                     android:textColorHint="@color/colorPrimaryHint"
                     android:hint="@string/description"
@@ -88,12 +90,13 @@
                 <!--Icon-->
                 <ImageView
                     android:layout_gravity="center_vertical"
-                    android:src="@drawable/ic_action_password"
+                    android:src="@drawable/ic_action_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <!--TextField-->
                 <EditText
+                    android:id="@+id/edtPrice"
                     android:textColor="@color/colorPrimaryDark"
                     android:textColorHint="@color/colorPrimaryHint"
                     android:hint="@string/price"
@@ -114,12 +117,13 @@
                 <!--Icon-->
                 <ImageView
                     android:layout_gravity="center_vertical"
-                    android:src="@drawable/ic_action_address"
+                    android:src="@drawable/ic_action_stock"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <!--TextField-->
                 <EditText
+                    android:id="@+id/edtStock"
                     android:textColor="@color/colorPrimaryDark"
                     android:textColorHint="@color/colorPrimaryHint"
                     android:hint="stock"
