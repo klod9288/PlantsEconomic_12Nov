@@ -1,13 +1,16 @@
 package srongklod_bangtamruat.plantseconomic.fragment;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -62,6 +65,8 @@ public class ShopSupplierFragment extends Fragment{
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 int amountProductInt = (int) dataSnapshot.getChildrenCount();
+                Log.d("9AprilV1", "จำนวน Product ==> " + amountProductInt);
+
                 nameStrings = new String[amountProductInt];
                 descriptionStrings = new String[amountProductInt];
                 priceStrings = new String[amountProductInt];
@@ -69,32 +74,48 @@ public class ShopSupplierFragment extends Fragment{
                 urlPathStrings = new String[amountProductInt];
 
 
+                try {
 
-                List list = new ArrayList();
-                for (DataSnapshot dataSnapshot1:dataSnapshot.getChildren()) {
-                    ShopModel shopModel = dataSnapshot1.getValue(ShopModel.class);
-                    list.add(shopModel);
+                    List list = new ArrayList();
+                    for (DataSnapshot dataSnapshot1:dataSnapshot.getChildren()) {
+                        ShopModel shopModel = dataSnapshot1.getValue(ShopModel.class);
+                        list.add(shopModel);
 
-                    ShopModel shopModel1 = (ShopModel) list.get(countInts[0]);
+                        ShopModel shopModel1 = (ShopModel) list.get(countInts[0]);
 
-                    Log.d("5AprilV3", "NameProduct["+countInts[0]+"] ==>"+shopModel1.getNameProductString());
+                        Log.d("9AprilV1", "NameProduct["+countInts[0]+"] ==>"+shopModel1.getNameProductString());
 
-                    nameStrings[countInts[0]] = shopModel1.getNameProductString();
-                    descriptionStrings[countInts[0]] = shopModel1.getDescriptionString();
-                    priceStrings[countInts[0]] = shopModel1.getPriceString();
-                    stockString[countInts[0]] = shopModel1.getStockString();
-                    urlPathStrings[countInts[0]] = shopModel1.getUrlImagePathString();
-
-
+                        nameStrings[countInts[0]] = shopModel1.getNameProductString();
+                        descriptionStrings[countInts[0]] = shopModel1.getDescriptionString();
+                        priceStrings[countInts[0]] = shopModel1.getPriceString();
+                        stockString[countInts[0]] = shopModel1.getStockString();
+                        urlPathStrings[countInts[0]] = shopModel1.getUrlImagePathString();
 
 
-                    countInts[0] += 1;
+
+
+                        countInts[0] += 1;
+                    }
+
+                } catch (Exception e) {
+                    createListView();
+                    Log.d("9AprilV1", "e Error" + e.toString());
                 }
 
 
                 ShopSupplierAdapter shopSupplierAdapter = new ShopSupplierAdapter(getActivity(),nameStrings
                 ,descriptionStrings,priceStrings,stockString,urlPathStrings);
                 listView.setAdapter(shopSupplierAdapter);
+
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                        showAlertDialog(nameStrings[position],"0ZWUBQoSEuSSWpodMWzbvKocAI33-2809");
+
+                    }
+                });
+
 
             }//onDataChange
 
@@ -106,6 +127,52 @@ public class ShopSupplierFragment extends Fragment{
             }
         });
 
+
+    }
+
+    private void showAlertDialog(String nameString, final String childClickString) {
+
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        final DatabaseReference databaseReference = firebaseDatabase.getReference()
+                .child("ShopSupplier")
+                .child("Shop-"+uidLoginString);
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(nameString);
+        builder.setMessage("What do you wan ?");
+        builder.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                databaseReference.child(childClickString).removeValue();
+                createListView();
+                dialog.dismiss();
+
+
+            }
+        });
+
+        builder.setNeutralButton("Edit", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        builder.setPositiveButton("Add Product", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.contentServiceFragment, new AddShopFragment()).commit();
+
+                dialog.dismiss();
+
+            }
+        });
+
+        builder.show();
 
     }
 

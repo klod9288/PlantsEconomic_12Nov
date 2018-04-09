@@ -96,12 +96,21 @@ public class ServiceActivity extends AppCompatActivity {
 
         if (item.getItemId()==R.id.itemSignOut) {
 
-            Intent intent = new Intent(ServiceActivity.this, MainActivity.class);
-            startActivity(intent);
             finish();
 
             return true;
         }
+
+        if (item.getItemId()==R.id.itemLogOut) {
+
+            FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+            firebaseAuth.signOut();
+
+            startActivity(new Intent(ServiceActivity.this,MainActivity.class));
+            finish();
+
+        }
+
 
         return super.onOptionsItemSelected(item);
 
