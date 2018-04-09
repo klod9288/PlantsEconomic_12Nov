@@ -31,7 +31,8 @@ import srongklod_bangtamruat.plantseconomic.utility.ShopSupplierAdapter;
 
 public class ShopSupplierFragment extends Fragment{
     private String uidLoginString;
-    private String[] nameStrings,descriptionStrings,priceStrings, stockString,urlPathStrings;
+    private String[] nameStrings,descriptionStrings,priceStrings, stockString,urlPathStrings,keyStrings;
+
 
 
     @Override
@@ -72,12 +73,19 @@ public class ShopSupplierFragment extends Fragment{
                 priceStrings = new String[amountProductInt];
                 stockString = new String[amountProductInt];
                 urlPathStrings = new String[amountProductInt];
+                keyStrings = new String[amountProductInt];
 
 
                 try {
 
                     List list = new ArrayList();
+
+
                     for (DataSnapshot dataSnapshot1:dataSnapshot.getChildren()) {
+
+                        keyStrings[countInts[0]] = dataSnapshot1.getKey();
+                        Log.d("9AprilV2", "keyString[" + countInts[0] + "] ==> " + keyStrings[countInts[0]]);
+
                         ShopModel shopModel = dataSnapshot1.getValue(ShopModel.class);
                         list.add(shopModel);
 
@@ -95,7 +103,7 @@ public class ShopSupplierFragment extends Fragment{
 
 
                         countInts[0] += 1;
-                    }
+                    }//for
 
                 } catch (Exception e) {
                     createListView();
@@ -111,7 +119,7 @@ public class ShopSupplierFragment extends Fragment{
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                        showAlertDialog(nameStrings[position],"0ZWUBQoSEuSSWpodMWzbvKocAI33-2809");
+                        showAlertDialog(nameStrings[position],keyStrings[position]);
 
                     }
                 });
