@@ -140,6 +140,8 @@ public class ShopSupplierFragment extends Fragment{
 
     private void showAlertDialog(String nameString, final String childClickString) {
 
+        Log.d("9AprilV3", "child ==> " + childClickString);
+
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         final DatabaseReference databaseReference = firebaseDatabase.getReference()
                 .child("ShopSupplier")
@@ -165,6 +167,11 @@ public class ShopSupplierFragment extends Fragment{
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.contentServiceFragment, EditShopFragment.editShopInstance(childClickString))
+                .commit();
+
+                dialog.dismiss();
             }
         });
 
