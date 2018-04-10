@@ -16,6 +16,7 @@
 
             <!--Heading-->
             <TextView
+                android:id="@+id/txtHead"
                 android:text="@string/head"
                 android:textSize="@dimen/h2"
                 android:layout_width="@dimen/distance1"
@@ -23,6 +24,7 @@
 
             <!--Current Date-->
             <TextView
+                android:id="@+id/txtCurrentDate"
                 android:layout_marginTop="@dimen/padding"
                 android:text="April 10,2018"
                 android:textSize="@dimen/h2"
@@ -31,6 +33,7 @@
 
             <!--Inside Address-->
             <TextView
+                android:id="@+id/txtInsideAddress"
                 android:text="Inside Address"
                 android:layout_marginTop="@dimen/padding"
                 android:textSize="@dimen/h2"
@@ -47,6 +50,7 @@
 
             <!--Body-->
             <EditText
+                android:id="@+id/edtBody"
                 android:layout_marginTop="@dimen/padding"
                 android:hint="@string/head"
                 android:textSize="@dimen/h2"
@@ -71,6 +75,7 @@
 
             <!--Position-->
             <TextView
+                android:id="@+id/txtPosition"
                 android:layout_marginTop="@dimen/padding"
                 android:text="Position"
                 android:textSize="@dimen/h2"
