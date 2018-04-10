@@ -5,7 +5,7 @@
 
     <!--Content-->
     <ScrollView
-        android:layout_above="@id/btnAddShop"
+        android:layout_above="@id/linBotton"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -127,7 +127,7 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textColorHint="@color/colorPrimaryHint"
                     android:hint="stock"
-                    android:inputType="text"
+                    android:inputType="number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -139,12 +139,30 @@
 
     </ScrollView>
 
-    <!--Button Add-->
-    <Button
-        android:id="@+id/btnAddShop"
-        android:text="Add Shop"
+    <LinearLayout
         android:layout_alignParentBottom="true"
+        android:id="@+id/linBotton"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_weight="1"
+            android:text="Back"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+        <!--Button Add-->
+        <Button
+            android:layout_weight="1"
+            android:id="@+id/btnAddShop"
+            android:text="Add Shop"
+            android:layout_alignParentBottom="true"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
 
 </RelativeLayout>

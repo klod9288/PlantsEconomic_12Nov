@@ -33,11 +33,13 @@ public class ShopSupplierFragment extends Fragment{
     private String uidLoginString;
     private String[] nameStrings,descriptionStrings,priceStrings, stockString,urlPathStrings,keyStrings;
 
-
+    private ListView listView;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+         listView = getView().findViewById(R.id.listViewShopSupplier);
 
 //        Find Login
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -55,7 +57,7 @@ public class ShopSupplierFragment extends Fragment{
 
     private void createListView() {
 
-        final ListView listView = getView().findViewById(R.id.listViewShopSupplier);
+
         final int[] countInts = new int[]{0};
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference()
@@ -168,7 +170,8 @@ public class ShopSupplierFragment extends Fragment{
             public void onClick(DialogInterface dialog, int which) {
 
                 getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.contentServiceFragment, EditShopFragment.editShopInstance(childClickString))
+                        .replace(R.id.contentServiceFragment,
+                                EditShopFragment.editShopInstance(childClickString,uidLoginString))
                 .commit();
 
                 dialog.dismiss();
