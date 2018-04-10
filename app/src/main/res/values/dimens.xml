@@ -7,4 +7,5 @@
     <dimen name="padding">15dp</dimen>
     <dimen name="avatar">150dp</dimen>
     <dimen name="icon1">80dp</dimen>
+    <dimen name="distance1">200dp</dimen>
 </resources>
