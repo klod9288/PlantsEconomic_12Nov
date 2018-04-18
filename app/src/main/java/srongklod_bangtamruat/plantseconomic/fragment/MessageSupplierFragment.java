@@ -125,6 +125,11 @@ public class MessageSupplierFragment extends Fragment{
                                     Toast.makeText(getActivity(),"Success Update to Firebase",
                                             Toast.LENGTH_SHORT).show();
 
+                                    getActivity().getSupportFragmentManager()
+                                            .beginTransaction()
+                                            .replace(R.id.contentServiceFragment, new MessageListFragment())
+                                            .commit();
+
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                         @Override

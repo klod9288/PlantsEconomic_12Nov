@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!--Date-->
+    <TextView
+        android:id="@+id/txtDate"
+        android:layout_margin="10dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
+        android:text="Month xx,xxxx"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <!--name and Surname-->
+    <TextView
+        android:id="@+id/txtNameAnSur"
+        android:layout_marginLeft="10dp"
+        android:layout_margin="10dp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/h1"
+        android:textStyle="italic"
+        android:text="Name And Surname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>
