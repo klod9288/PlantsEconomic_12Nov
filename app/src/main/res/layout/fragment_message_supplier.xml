@@ -32,13 +32,11 @@
                 android:layout_height="wrap_content" />
 
             <!--Inside Address-->
-            <TextView
-                android:id="@+id/txtInsideAddress"
-                android:text="Inside Address"
+            <Spinner
+                android:id="@+id/senderSpinner"
                 android:layout_marginTop="@dimen/padding"
-                android:textSize="@dimen/h2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"/>
 
             <!--Greeting-->
             <TextView
