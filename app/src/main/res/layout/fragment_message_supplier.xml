@@ -1,87 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:padding="@dimen/padding"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <ScrollView
+        android:padding="@dimen/padding"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <!--Heading-->
             <TextView
                 android:id="@+id/txtHead"
-                android:text="@string/head"
-                android:textSize="@dimen/h2"
                 android:layout_width="@dimen/distance1"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="@string/head"
+                android:textSize="@dimen/h2" />
 
             <!--Current Date-->
             <TextView
                 android:id="@+id/txtCurrentDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/padding"
                 android:text="April 10,2018"
-                android:textSize="@dimen/h2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:textSize="@dimen/h2" />
 
             <!--Inside Address-->
             <Spinner
                 android:id="@+id/senderSpinner"
-                android:layout_marginTop="@dimen/padding"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding" />
 
             <!--Greeting-->
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/padding"
                 android:text="Dear Sirs :"
-                android:textSize="@dimen/h2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:textSize="@dimen/h2" />
 
             <!--Body-->
             <EditText
                 android:id="@+id/edtBody"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/padding"
                 android:hint="@string/head"
-                android:textSize="@dimen/h2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:textSize="@dimen/h2" />
 
             <!--Complimentary-->
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/padding"
                 android:text="Sincerely Yours"
-                android:textSize="@dimen/h2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:textSize="@dimen/h2" />
 
             <!--Signature-->
             <ImageView
+                android:layout_width="@dimen/avatar"
+                android:layout_height="@dimen/h1"
                 android:layout_marginTop="@dimen/padding"
                 android:scaleType="fitCenter"
-                android:layout_width="@dimen/avatar"
-                android:src="@drawable/signature"
-                android:layout_height="@dimen/h1" />
+                android:src="@drawable/signature" />
 
             <!--Position-->
             <TextView
                 android:id="@+id/txtPosition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/padding"
                 android:text="Position"
-                android:textSize="@dimen/h2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:textSize="@dimen/h2" />
 
         </LinearLayout>
 
     </ScrollView>
 
-</LinearLayout>
+    <Button
+        android:id="@+id/btnSend"
+        android:text="Send"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
+
+</RelativeLayout>
