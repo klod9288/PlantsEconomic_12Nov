@@ -42,7 +42,8 @@ public class EditShopFragment extends Fragment{
     private ImageView imageView;
     private Button button;
     private EditText nameEditText,descriptionEditText,priceEditText, stockEditText;
-    private String nameString,descriptionString,priceString, stockString,urlImageString;
+    private String nameString,descriptionString,priceString, stockString,urlImageString,
+            unitMoneyString,unitStockString;
     private boolean imageABoolean = false;
     private Uri uri;
 
@@ -301,6 +302,26 @@ public class EditShopFragment extends Fragment{
                 String priceString=shopModel.getPriceString();
                 String stockString = shopModel.getStockString();
                 urlImageString = shopModel.getUrlImagePathString();
+
+                String[] strings=priceString.split("\\s+");
+                String[] strings1=stockString.split("\\s+");
+
+                if (strings.length >1) {
+
+                    priceString = strings[0];
+                    unitMoneyString = strings[1];
+                    Log.d("19AprilV1", "unitMoney ==>" + unitMoneyString);
+
+                }
+
+                if (strings1.length > 1) {
+
+                    stockString = strings1[0];
+                    unitStockString = strings1[1];
+                    Log.d("19AprilV1", "uintStock ==>" + unitStockString);
+
+                }
+
 
                 nameEditText.setText(nameString);
                 descriptionEditText.setText(descriptionString);
