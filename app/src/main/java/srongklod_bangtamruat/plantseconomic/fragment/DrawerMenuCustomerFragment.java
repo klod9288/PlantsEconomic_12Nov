@@ -66,8 +66,7 @@ public class DrawerMenuCustomerFragment extends Fragment{
                         break;
                     case 1:
 //                        for Friend
-                        getActivity().getSupportFragmentManager()
-                                .beginTransaction()
+                        getActivity().getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.contentServiceFragment, new AddFriendCustomerFragment())
                                 .commit();
 
@@ -77,10 +76,16 @@ public class DrawerMenuCustomerFragment extends Fragment{
                         break;
                     case 3:
 //                        for News
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.contentServiceFragment,
-                                new NewsFragment()).commit();
+                        getActivity().getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.contentServiceFragment, new NewsFragment()).commit();
 
                         break;
+                    case 4:
+//                        For Shop
+                        getActivity().getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.contentServiceFragment, new ShowShopCustomerFragment()).commit();
+
+
                 }//switch
 
                 ((ServiceActivity)getActivity()).myCloseDrawer();

@@ -12,9 +12,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -34,6 +37,7 @@ import java.util.Random;
 
 import srongklod_bangtamruat.plantseconomic.R;
 import srongklod_bangtamruat.plantseconomic.utility.MyAlert;
+import srongklod_bangtamruat.plantseconomic.utility.Myconstan;
 import srongklod_bangtamruat.plantseconomic.utility.ShopModel;
 
 public class EditShopFragment extends Fragment{
@@ -158,6 +162,10 @@ public class EditShopFragment extends Fragment{
     }
 
     private void updateDatabaseFirebase() {
+
+        priceString = priceString + " " + unitMoneyString;
+        stockString = stockString + " " + unitStockString;
+
 
         ShopModel shopModel = new ShopModel(nameString, descriptionString, priceString,
                 stockString, urlImageString);
@@ -303,13 +311,27 @@ public class EditShopFragment extends Fragment{
                 String stockString = shopModel.getStockString();
                 urlImageString = shopModel.getUrlImagePathString();
 
+                Myconstan myconstan = new Myconstan();
+
+
                 String[] strings=priceString.split("\\s+");
                 String[] strings1=stockString.split("\\s+");
+                final String[] unitMoneyStrings2 = myconstan.getUnitMoneyStrings();
+                final String[] unitStockStrings2 = myconstan.getUnitStockStrings();
+                int indexUnitMoney = 0;
+                int indexUnitStock = 0;
+
+
 
                 if (strings.length >1) {
 
                     priceString = strings[0];
                     unitMoneyString = strings[1];
+
+                    if (unitMoneyString.equals(unitMoneyStrings2[1])) {
+                        indexUnitMoney = 1;
+                    }
+
                     Log.d("19AprilV1", "unitMoney ==>" + unitMoneyString);
 
                 }
@@ -318,9 +340,67 @@ public class EditShopFragment extends Fragment{
 
                     stockString = strings1[0];
                     unitStockString = strings1[1];
+
+                    if (unitStockString.equals(unitStockStrings2[1])) {
+                        indexUnitStock = 1;
+                    } else if (unitStockString.equals(unitStockStrings2[2])) {
+                        indexUnitStock = 2;
+                    }
+
+
                     Log.d("19AprilV1", "uintStock ==>" + unitStockString);
 
                 }
+
+//                Create Spinner
+                Spinner moneySpinner = getView().findViewById(R.id.spinnerMoney);
+                Spinner stockSpinner = getView().findViewById(R.id.spinnerStock);
+
+                ArrayAdapter<String> moneyStringArrayAdapter = new ArrayAdapter<String>(getActivity()
+                ,android.R.layout.simple_list_item_1,unitMoneyStrings2);
+                moneySpinner.setAdapter(moneyStringArrayAdapter);
+                moneySpinner.setSelection(indexUnitMoney);
+                moneySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                        unitMoneyString = unitMoneyStrings2[position];
+
+
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+
+
+
+                    }
+                });
+
+
+
+                ArrayAdapter<String> stockStringArrayAdapter = new ArrayAdapter<String>(getActivity()
+                ,android.R.layout.simple_list_item_1,unitStockStrings2);
+                stockSpinner.setAdapter(stockStringArrayAdapter);
+                stockSpinner.setSelection(indexUnitStock);
+                stockSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                        unitStockString = unitStockStrings2[position];
+
+
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+
+
+
 
 
                 nameEditText.setText(nameString);
