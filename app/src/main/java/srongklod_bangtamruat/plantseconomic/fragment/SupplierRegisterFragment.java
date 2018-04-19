@@ -2,6 +2,7 @@ package srongklod_bangtamruat.plantseconomic.fragment;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -26,6 +28,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import srongklod_bangtamruat.plantseconomic.R;
+import srongklod_bangtamruat.plantseconomic.ServiceActivity;
 import srongklod_bangtamruat.plantseconomic.utility.MyAlert;
 import srongklod_bangtamruat.plantseconomic.utility.SupplierModel;
 
@@ -195,6 +198,18 @@ public class SupplierRegisterFragment extends Fragment {
                 databaseReference = FirebaseDatabase.getInstance().getReference().child("Supplier");
                 databaseReference.child(uidUserString).setValue(supplierModel);
 
+                progressDialog.dismiss();
+
+                startActivity(new Intent(getActivity(), ServiceActivity.class));
+                getActivity().finish();
+
+
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(tag, "Failure ==>" + e.toString());
             }
         });
 
@@ -205,7 +220,7 @@ public class SupplierRegisterFragment extends Fragment {
 
         progressDialog.dismiss();
 
-        getActivity().getSupportFragmentManager().popBackStack();
+        //getActivity().getSupportFragmentManager().popBackStack();
     }
 
     private boolean checkSpace() {

@@ -113,6 +113,11 @@ public class ShopSupplierFragment extends Fragment{
                 }
 
 
+                if (nameStrings.length == 0) {
+                    addShopSupplier();
+                }
+
+
                 ShopSupplierAdapter shopSupplierAdapter = new ShopSupplierAdapter(getActivity(),nameStrings
                 ,descriptionStrings,priceStrings,stockString,urlPathStrings);
                 listView.setAdapter(shopSupplierAdapter);
@@ -170,8 +175,7 @@ public class ShopSupplierFragment extends Fragment{
             public void onClick(DialogInterface dialog, int which) {
 
                 getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.contentServiceFragment,
-                                EditShopFragment.editShopInstance(childClickString,uidLoginString))
+                        .replace(R.id.contentServiceFragment, EditShopFragment.editShopInstance(childClickString,uidLoginString))
                 .commit();
 
                 dialog.dismiss();
@@ -197,11 +201,8 @@ public class ShopSupplierFragment extends Fragment{
 
     private void addShopSupplier() {
 
-        getActivity()
-                .getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.contentServiceFragment,new AddShopFragment())
-                .commit();
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.contentServiceFragment,new AddShopFragment()).commit();
 
 
     }//addShopSupplier
