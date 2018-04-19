@@ -94,17 +94,33 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <!--TextField-->
-                <EditText
-                    android:id="@+id/edtPrice"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textColorHint="@color/colorPrimaryHint"
-                    android:hint="@string/price"
-                    android:inputType="numberDecimal"
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content">
+
+                    <!--TextField-->
+                    <EditText
+                        android:layout_weight="3"
+                        android:id="@+id/edtPrice"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textColorHint="@color/colorPrimaryHint"
+                        android:hint="@string/price"
+                        android:inputType="numberDecimal"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+
+                    <Spinner
+                        android:id="@+id/spinnerMoney"
+                        android:layout_weight="2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"></Spinner>
 
 
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -123,15 +139,29 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <!--TextField-->
-                <EditText
-                    android:id="@+id/edtStock"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textColorHint="@color/colorPrimaryHint"
-                    android:hint="stock"
-                    android:inputType="number"
+                <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content">
+
+                    <!--TextField-->
+                    <EditText
+                        android:layout_weight="3"
+                        android:id="@+id/edtStock"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textColorHint="@color/colorPrimaryHint"
+                        android:hint="stock"
+                        android:inputType="number"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content" />
+
+                    <Spinner
+                        android:id="@+id/spinnerStock"
+                        android:layout_weight="2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"></Spinner>
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -149,9 +179,10 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/btnBack"
             android:layout_weight="1"
+            android:id="@+id/btnBack"
             android:text="Back"
+            android:layout_alignParentBottom="true"
             android:layout_width="0dp"
             android:layout_height="wrap_content" />
 

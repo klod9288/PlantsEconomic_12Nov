@@ -4,26 +4,46 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <!--Date-->
-    <TextView
-        android:id="@+id/txtDate"
-        android:layout_margin="10dp"
-        android:textColor="@color/colorPrimaryDark"
-        android:textStyle="bold"
-        android:text="Month xx,xxxx"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <!--name and Surname-->
-    <TextView
-        android:id="@+id/txtNameAnSur"
-        android:layout_marginLeft="10dp"
-        android:layout_margin="10dp"
-        android:textColor="@color/colorPrimary"
-        android:textSize="@dimen/h1"
-        android:textStyle="italic"
-        android:text="Name And Surname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <ImageView
+            android:scaleType="fitXY"
+            android:src="@drawable/my_green"
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="vertical">
+
+            <!--Date-->
+            <TextView
+                android:id="@+id/txtDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Month xx,xxxx"
+                android:textColor="#ffffff"
+                android:textStyle="bold" />
+
+            <!--name and Surname-->
+            <TextView
+                android:id="@+id/txtNameAnSur"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginLeft="10dp"
+                android:text="Name And Surname"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/h1"
+                android:textStyle="italic" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
 
 </LinearLayout>

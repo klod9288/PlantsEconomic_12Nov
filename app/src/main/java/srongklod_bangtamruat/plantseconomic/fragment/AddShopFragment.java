@@ -13,9 +13,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -34,6 +37,7 @@ import java.util.Random;
 
 import srongklod_bangtamruat.plantseconomic.R;
 import srongklod_bangtamruat.plantseconomic.utility.MyAlert;
+import srongklod_bangtamruat.plantseconomic.utility.Myconstan;
 import srongklod_bangtamruat.plantseconomic.utility.ShopModel;
 
 public class AddShopFragment extends Fragment{
@@ -42,7 +46,8 @@ public class AddShopFragment extends Fragment{
     private ImageView imageView;
     private Uri uri;
     private String nameString,descriptionString,priceString,
-            stockString,displayString,uidLoginString,nameImageString,urlImageString;
+            stockString,displayString,uidLoginString,nameImageString,
+            urlImageString,unitMoneyString,unitStockString;
 
     private ProgressDialog progressDialog;
 
@@ -53,6 +58,10 @@ public class AddShopFragment extends Fragment{
 //        Find Login
         findLogin();
 
+//        Create Spinner
+        createSpinner();
+
+
 //        Image Controller
         imageController();
 
@@ -60,6 +69,65 @@ public class AddShopFragment extends Fragment{
         buttonController();
 
     }//Main Method
+
+    private void createSpinner() {
+
+        Spinner moneySpinner = getView().findViewById(R.id.spinnerMoney);
+        Spinner stockSpinner = getView().findViewById(R.id.spinnerStock);
+
+        Myconstan myconstan = new Myconstan();
+        final String[] moneyStrings = myconstan.getUnitMoneyStrings();
+        final String[] stockStrings = myconstan.getUnitStockStrings();
+
+        unitMoneyString = moneyStrings[0];
+        unitStockString = stockStrings[0];
+
+
+
+
+        ArrayAdapter<String> moneyStringArrayAdapter = new ArrayAdapter<String>(getActivity()
+        ,android.R.layout.simple_list_item_1,moneyStrings);
+
+        ArrayAdapter<String> stockStringArrayAdapter = new ArrayAdapter<String>(getActivity()
+        ,android.R.layout.simple_list_item_1,stockStrings);
+
+        moneySpinner.setAdapter(moneyStringArrayAdapter);
+        stockSpinner.setAdapter(stockStringArrayAdapter);
+
+        moneySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                unitMoneyString = moneyStrings[position];
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+                unitMoneyString = moneyStrings[0];
+
+
+            }
+        });
+
+        stockSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                unitStockString = stockStrings[position];
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+                unitStockString = stockStrings[0];
+
+            }
+        });
+
+    }
 
     private void findLogin() {
 
@@ -180,6 +248,9 @@ public class AddShopFragment extends Fragment{
         Log.d("5AprilV2","price ==>"+priceString);
         Log.d("5AprilV2","stock ==>"+stockString);
         Log.d("5AprilV2", "urlPath ==>" +urlImageString);
+
+        priceString = priceString + " " + unitMoneyString;
+        stockString = stockString + " " + unitStockString;
 
         ShopModel shopModel = new ShopModel(nameString,descriptionString,priceString,stockString,urlImageString);
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
