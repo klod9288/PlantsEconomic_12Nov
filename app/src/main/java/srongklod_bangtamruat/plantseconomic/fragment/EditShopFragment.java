@@ -360,7 +360,7 @@ public class EditShopFragment extends Fragment{
                 ShopModel shopModel = dataSnapshot.getValue(ShopModel.class);
 
                 String nameString = shopModel.getNameProductString();
-                categoryString = shopModel.getCategortString();
+                categoryString = shopModel.getCategoryString();
                 String descriptionString = shopModel.getDescriptionString();
                 String priceString=shopModel.getPriceString();
                 String stockString = shopModel.getStockString();

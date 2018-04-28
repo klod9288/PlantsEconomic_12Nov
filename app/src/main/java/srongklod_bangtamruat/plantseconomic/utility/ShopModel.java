@@ -12,19 +12,17 @@ public class ShopModel implements Parcelable{
     }
 
     public ShopModel(String nameProductString,
-                     String categortString,
+                     String categoryString,
                      String descriptionString,
                      String priceString,
                      String stockString,
                      String urlImagePathString) {
-
         this.nameProductString = nameProductString;
-        this.categoryString = categortString;
+        this.categoryString = categoryString;
         this.descriptionString = descriptionString;
         this.priceString = priceString;
         this.stockString = stockString;
         this.urlImagePathString = urlImagePathString;
-
     }
 
     protected ShopModel(Parcel in) {
@@ -56,12 +54,12 @@ public class ShopModel implements Parcelable{
         this.nameProductString = nameProductString;
     }
 
-    public String getCategortString() {
+    public String getCategoryString() {
         return categoryString;
     }
 
-    public void setCategortString(String categortString) {
-        this.categoryString = categortString;
+    public void setCategoryString(String categoryString) {
+        this.categoryString = categoryString;
     }
 
     public String getDescriptionString() {
@@ -95,7 +93,6 @@ public class ShopModel implements Parcelable{
     public void setUrlImagePathString(String urlImagePathString) {
         this.urlImagePathString = urlImagePathString;
     }
-
 
     @Override
     public int describeContents() {
