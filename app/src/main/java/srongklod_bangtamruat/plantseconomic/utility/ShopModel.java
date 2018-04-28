@@ -5,25 +5,31 @@ import android.os.Parcelable;
 
 public class ShopModel implements Parcelable{
 
-    private String nameProductString,descriptionString,
+    private String nameProductString,categoryString, descriptionString,
             priceString,stockString, urlImagePathString;
 
     public ShopModel() {
     }
 
     public ShopModel(String nameProductString,
+                     String categortString,
                      String descriptionString,
                      String priceString,
-                     String stockString, String urlImagePathString) {
+                     String stockString,
+                     String urlImagePathString) {
+
         this.nameProductString = nameProductString;
+        this.categoryString = categortString;
         this.descriptionString = descriptionString;
         this.priceString = priceString;
         this.stockString = stockString;
         this.urlImagePathString = urlImagePathString;
+
     }
 
     protected ShopModel(Parcel in) {
         nameProductString = in.readString();
+        categoryString = in.readString();
         descriptionString = in.readString();
         priceString = in.readString();
         stockString = in.readString();
@@ -48,6 +54,14 @@ public class ShopModel implements Parcelable{
 
     public void setNameProductString(String nameProductString) {
         this.nameProductString = nameProductString;
+    }
+
+    public String getCategortString() {
+        return categoryString;
+    }
+
+    public void setCategortString(String categortString) {
+        this.categoryString = categortString;
     }
 
     public String getDescriptionString() {
@@ -82,6 +96,7 @@ public class ShopModel implements Parcelable{
         this.urlImagePathString = urlImagePathString;
     }
 
+
     @Override
     public int describeContents() {
         return 0;
@@ -90,6 +105,7 @@ public class ShopModel implements Parcelable{
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(nameProductString);
+        dest.writeString(categoryString);
         dest.writeString(descriptionString);
         dest.writeString(priceString);
         dest.writeString(stockString);

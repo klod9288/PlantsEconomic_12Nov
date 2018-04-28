@@ -47,7 +47,7 @@ public class AddShopFragment extends Fragment{
     private Uri uri;
     private String nameString,descriptionString,priceString,
             stockString,displayString,uidLoginString,nameImageString,
-            urlImageString,unitMoneyString,unitStockString;
+            urlImageString,unitMoneyString,unitStockString,categoryString;
 
     private ProgressDialog progressDialog;
 
@@ -61,6 +61,8 @@ public class AddShopFragment extends Fragment{
 //        Create Spinner
         createSpinner();
 
+//        Create Category
+        createCategory();
 
 //        Image Controller
         imageController();
@@ -69,6 +71,43 @@ public class AddShopFragment extends Fragment{
         buttonController();
 
     }//Main Method
+
+    private void createCategory() {
+
+
+        Spinner spinner = getView().findViewById(R.id.spinnerCategory);
+
+        Myconstan myconstan = new Myconstan();
+
+        final String[] strings=myconstan.getCategoryShopStrings();
+        categoryString = strings[0];
+
+
+        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<String>(getActivity(),
+                android.R.layout.simple_list_item_1,myconstan.getCategoryShopStrings());
+
+        spinner.setAdapter(stringArrayAdapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                categoryString = strings[position];
+                Log.d("28AprilV1", "Category Index x ==> " + categoryString);
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+                categoryString = strings[0];
+
+
+            }
+        });
+
+    }
 
     private void createSpinner() {
 
@@ -252,7 +291,9 @@ public class AddShopFragment extends Fragment{
         priceString = priceString + " " + unitMoneyString;
         stockString = stockString + " " + unitStockString;
 
-        ShopModel shopModel = new ShopModel(nameString,descriptionString,priceString,stockString,urlImageString);
+        ShopModel shopModel = new ShopModel(nameString,categoryString, descriptionString,
+                priceString,stockString,urlImageString);
+
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference()
                 .child("ShopSupplier")

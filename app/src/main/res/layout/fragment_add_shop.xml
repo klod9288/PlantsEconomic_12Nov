@@ -51,6 +51,29 @@
 
             </LinearLayout>
 
+            <!--category-->
+            <LinearLayout
+                android:layout_marginLeft="@dimen/margin"
+                android:layout_marginRight="@dimen/margin"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!--Icon-->
+                <ImageView
+                    android:src="@drawable/ic_action_business"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <!--Spinner-->
+                <Spinner
+                    android:id="@+id/spinnerCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+
+            </LinearLayout>
+
             <!--Description-->
             <LinearLayout
                 android:layout_marginLeft="@dimen/margin"
