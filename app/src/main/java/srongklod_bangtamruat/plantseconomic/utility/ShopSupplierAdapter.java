@@ -55,7 +55,21 @@ public class ShopSupplierAdapter extends BaseAdapter{
         View view = layoutInflater.inflate(R.layout.listview_shop_supplier, parent, false);
 
         ImageView imageView = view.findViewById(R.id.imvProduct);
-        Picasso.with(context).load(urlImageStrings[position]).resize(180,180).into(imageView);
+
+        try {
+
+            Picasso.with(context)
+                    .load(urlImageStrings[position])
+                    .resize(180,180)
+                    .into(imageView);
+
+        } catch (Exception e) {
+
+            imageView.setImageResource(R.drawable.avatar);
+
+        }
+
+
 
         TextView nameTextView = view.findViewById(R.id.txtName);
         TextView descriptionTextView = view.findViewById(R.id.txtDescription);

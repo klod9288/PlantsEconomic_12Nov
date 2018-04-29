@@ -200,23 +200,37 @@ public class ListShopWhereByCategoryFragment extends Fragment {
 
                     Log.d("29AprilV6", "nameString ==> "+nameString);
 
-                    nameStringArrayList.add(nameString);
-                    descriptionStringArrayList.add(String.valueOf(map.get("descriptionString")));
-                    priceStringArrayList.add(String.valueOf(map.get("priceString")));
-                    imageStringArrayList.add(String.valueOf(map.get("urlImagePathString")));
-                    stockStringArrayList.add(String.valueOf(map.get("stockString")));
+                    if (categoryString.equals(String.valueOf(map.get("categoryString")))) {
+
+
+                        nameStringArrayList.add(nameString);
+                        descriptionStringArrayList.add(String.valueOf(map.get("descriptionString")));
+                        priceStringArrayList.add(String.valueOf(map.get("priceString")));
+                        imageStringArrayList.add(String.valueOf(map.get("urlImagePathString")));
+                        stockStringArrayList.add(String.valueOf(map.get("stockString")));
+
+                    }
+
+
+
 
                     Log.d("29AprilV6", "ชื่อสินค้าทั้งหมด ==> " + nameStringArrayList);
 
                     MyChangeArrayListToArray myChangeArrayListToArray = new MyChangeArrayListToArray(getActivity());
 
-                    ShopSupplierAdapter shopSupplierAdapter = new ShopSupplierAdapter(getActivity(),
-                            myChangeArrayListToArray.myArray(nameStringArrayList.toString()),
-                            myChangeArrayListToArray.myArray(descriptionStringArrayList.toString()),
-                            myChangeArrayListToArray.myArray(priceStringArrayList.toString()),
-                            myChangeArrayListToArray.myArray(stockStringArrayList.toString()),
-                            myChangeArrayListToArray.myArray(imageStringArrayList.toString()));
-                    listView.setAdapter(shopSupplierAdapter);
+                    try {
+
+                        ShopSupplierAdapter shopSupplierAdapter = new ShopSupplierAdapter(getActivity(),
+                                myChangeArrayListToArray.myArray(nameStringArrayList.toString()),
+                                myChangeArrayListToArray.myArray(descriptionStringArrayList.toString()),
+                                myChangeArrayListToArray.myArray(priceStringArrayList.toString()),
+                                myChangeArrayListToArray.myArray(stockStringArrayList.toString()),
+                                myChangeArrayListToArray.myArray(imageStringArrayList.toString()));
+                        listView.setAdapter(shopSupplierAdapter);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
 
 
