@@ -19,10 +19,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import srongklod_bangtamruat.plantseconomic.R;
+import srongklod_bangtamruat.plantseconomic.utility.MyChangeArrayListToArray;
 import srongklod_bangtamruat.plantseconomic.utility.Myconstan;
 import srongklod_bangtamruat.plantseconomic.utility.ShopModel;
+import srongklod_bangtamruat.plantseconomic.utility.ShopSupplierAdapter;
 
 public class ListShopWhereByCategoryFragment extends Fragment {
 
@@ -32,6 +35,8 @@ public class ListShopWhereByCategoryFragment extends Fragment {
     private String mainChildString = "ShopSupplier",categoryString;
     private ArrayList<String> nameStringArrayList, descriptionStringArrayList, priceStringArrayList,
             imageStringArrayList, stockStringArrayList;
+
+    private int timesDetail = 0;
 
 
     public static ListShopWhereByCategoryFragment listShopWhereByCategoryInstance(int indexInt) {
@@ -63,6 +68,7 @@ public class ListShopWhereByCategoryFragment extends Fragment {
 
     private void setUpArrayList() {
 
+        nameProductStringArrayList = new ArrayList<>();
         nameStringArrayList = new ArrayList<>();
         descriptionStringArrayList = new ArrayList<>();
         priceStringArrayList = new ArrayList<>();
@@ -95,6 +101,7 @@ public class ListShopWhereByCategoryFragment extends Fragment {
                 findProduct();
 
 
+
             }//onDataChange
 
             @Override
@@ -104,36 +111,44 @@ public class ListShopWhereByCategoryFragment extends Fragment {
         });
 
 
+
     }//createListView
 
     private void findProduct() {
 
-        nameProductStringArrayList = new ArrayList<>();
+        Log.d("29AprilV2", "ชื่อร้านค้า" + nameShopStringArrayList);
 
+        MyChangeArrayListToArray myChangeArrayListToArray = new MyChangeArrayListToArray(getActivity());
+        String[] nameShopStrings = myChangeArrayListToArray.myArray(nameShopStringArrayList.toString());
 
-        for (int i = 0; i < nameShopStringArrayList.size(); i += 1) {
+        for (final String nameShopString : nameShopStrings) {
+
+            Log.d("29AprilV2", "nameShop ==> " + nameShopString);
 
             FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-            DatabaseReference databaseReference = firebaseDatabase.getReference()
+            DatabaseReference databaseReference=firebaseDatabase.getReference()
                     .child(mainChildString)
-                    .child(nameShopStringArrayList.get(i));
+                    .child(nameShopString);
 
-            final int finalI = i;
             databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
                     for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
+                        Log.d("29AprilV3", "ชื่อร้าน ==> " + nameShopString);
+
                         nameProductStringArrayList.add(dataSnapshot1.getKey());
+
+                        findDetail(nameShopString,dataSnapshot1.getKey().toString());
+
+                        Log.d("29AprilV3", "ชื่อสินค้า ==> " + nameProductStringArrayList);
 
                     }//for
 
-                    Log.d("28AprilV3", "nameProduct ==> " + nameProductStringArrayList.toString());
+                    Log.d("29AprilV6", "nameString ==> " + nameStringArrayList);
 
-                    createArrayListForShow(nameShopStringArrayList.get(finalI));
-
-                }
+                }//on Data Change
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
@@ -141,60 +156,148 @@ public class ListShopWhereByCategoryFragment extends Fragment {
                 }
             });
 
+
+
+
         }//for
-    }
 
-    private void createArrayListForShow(String nameShopString) {
 
-        for (int i=0;i<nameProductStringArrayList.size();i+=1) {
+
+    }//find Product
+
+    private void findDetail(final String nameShopString, final String nameProductString) {
+
+        timesDetail += 1;
+
+        Log.d("29AprilV4", "nameShop ==> " + nameShopString);
+        Log.d("29AprilV4", "nameProduct ==> " + nameProductString);
+        Log.d("29AprilV4", "timesDetail ==> " + timesDetail);
+
+        try {
 
             FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
             DatabaseReference databaseReference = firebaseDatabase.getReference()
                     .child(mainChildString)
                     .child(nameShopString)
-                    .child(nameProductStringArrayList.get(i));
+                    .child(nameProductString);
+
+            final int[] ints = new int[]{0};
+            final List list = new ArrayList();
+            final int[] amountProductInt = {0};
 
             databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
-                    int[] ints = new int[]{0};
+                    amountProductInt[0] = (int) dataSnapshot.getChildrenCount();
 
-                    List stringArrayList = new ArrayList<>();
+                    Log.d("29AprilV5", "ร้าน ==> "+nameShopString);
+                    Log.d("29AprilV5", "สินค้า ==> " + nameProductString);
+                    Log.d("29AprilV5", "dataSnapshot ==> " + dataSnapshot.toString());
 
-                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    Map map = (Map) dataSnapshot.getValue();
+                    String nameString = String.valueOf(map.get("nameProductString"));
 
-                        ShopModel shopModel = dataSnapshot1.getValue(ShopModel.class);
-                        stringArrayList.add(shopModel);
+                    Log.d("29AprilV6", "nameString ==> "+nameString);
 
-                        ShopModel shopModel1 = (ShopModel) stringArrayList.get(ints[0]);
+                    nameStringArrayList.add(nameString);
+                    descriptionStringArrayList.add(String.valueOf(map.get("descriptionString")));
+                    priceStringArrayList.add(String.valueOf(map.get("priceString")));
+                    imageStringArrayList.add(String.valueOf(map.get("urlImagePathString")));
+                    stockStringArrayList.add(String.valueOf(map.get("stockString")));
 
-                        if (categoryString.equals(shopModel1.getCategoryString())) {
+                    Log.d("29AprilV6", "ชื่อสินค้าทั้งหมด ==> " + nameStringArrayList);
 
-                            nameStringArrayList.add(shopModel1.getNameProductString());
+                    MyChangeArrayListToArray myChangeArrayListToArray = new MyChangeArrayListToArray(getActivity());
+
+                    ShopSupplierAdapter shopSupplierAdapter = new ShopSupplierAdapter(getActivity(),
+                            myChangeArrayListToArray.myArray(nameStringArrayList.toString()),
+                            myChangeArrayListToArray.myArray(descriptionStringArrayList.toString()),
+                            myChangeArrayListToArray.myArray(priceStringArrayList.toString()),
+                            myChangeArrayListToArray.myArray(stockStringArrayList.toString()),
+                            myChangeArrayListToArray.myArray(imageStringArrayList.toString()));
+                    listView.setAdapter(shopSupplierAdapter);
 
 
-                        }//if
 
-                        ints[0] += 1;
-
-                    }//for
-
-
-                    Log.d("28AprilV3", "Name Product ==> " + nameStringArrayList);
-
-                }
+                }//onData Change
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
 
                 }
-            });
+            });//
+
+
+
+        } catch (Exception e) {
+            Log.d("29AprilV4", "e ==> "+e.toString());
+        }
+
+
+    }//Find Detail
+
+    private void createArrayListForShow() {
+
+        for (int y=0;y<nameShopStringArrayList.size();y+=1) {
+
+            for (int i=0;i<nameProductStringArrayList.size();i+=1) {
+
+                FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                DatabaseReference databaseReference = firebaseDatabase.getReference()
+                        .child(mainChildString)
+                        .child(nameShopStringArrayList.get(y))
+                        .child(nameProductStringArrayList.get(i));
+
+                databaseReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        int[] ints = new int[]{0};
+
+                        List stringArrayList = new ArrayList<>();
+
+                        for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+
+                            try {
+
+                                ShopModel shopModel = dataSnapshot1.getValue(ShopModel.class);
+                                stringArrayList.add(shopModel);
+
+                                ShopModel shopModel1 = (ShopModel) stringArrayList.get(ints[0]);
+
+                                if (categoryString.equals(shopModel1.getCategoryString())) {
+
+                                    nameStringArrayList.add(shopModel1.getNameProductString());
+
+
+                                }//if
+
+                                ints[0] += 1;
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                        }//for
+
+
+                        Log.d("28AprilV3", "Name Product ==> " + nameStringArrayList);
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+            }//for
 
         }//for
 
 
-    }
+    }//createListForShop
 
     private void showCategory() {
 
