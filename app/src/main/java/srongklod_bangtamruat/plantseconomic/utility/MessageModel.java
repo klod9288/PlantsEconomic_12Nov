@@ -5,7 +5,8 @@ import android.os.Parcelable;
 
 public class MessageModel implements Parcelable{
 
-    private String currentDateString,messageString,nameAnSurnameString, uidSenderString;
+    private String currentDateString,messageString,
+            nameAnSurnameString, uidSenderString;
 
     public MessageModel() {
     }

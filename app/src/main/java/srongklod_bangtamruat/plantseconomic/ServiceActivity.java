@@ -23,7 +23,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import srongklod_bangtamruat.plantseconomic.fragment.CustomerShowFragment;
 import srongklod_bangtamruat.plantseconomic.fragment.DrawerMenuCustomerFragment;
@@ -73,7 +75,44 @@ public class ServiceActivity extends AppCompatActivity {
 
         createToolbar();
 
+//        Check ReceiveMessage
+        checkReceiveMessage();
+
+
     }   // Main Method
+
+    private void checkReceiveMessage() {
+        Log.d("29AprilV7", "uidLogin ==> " + userUidString);
+
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = firebaseDatabase.getReference()
+                .child("Customer")
+                .child(userUidString);
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                Map map = (Map) dataSnapshot.getValue();
+                String receiveMessageString = String.valueOf(map.get("ReceiveMessage"));
+                Log.d("29AprilV7", "ReceiveMessage ==> " + receiveMessageString);
+
+                if (Boolean.parseBoolean(receiveMessageString)) {
+                    Toast.makeText(ServiceActivity.this,"Have Message",
+                            Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+
+            }
+        });
+
+
+
+    }
 
     @Override
     public void onBackPressed() {
