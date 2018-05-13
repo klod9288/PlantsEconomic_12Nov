@@ -3,6 +3,9 @@ package srongklod_bangtamruat.plantseconomic.fragment;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -26,7 +29,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import srongklod_bangtamruat.plantseconomic.R;
 import srongklod_bangtamruat.plantseconomic.ServiceActivity;
 import srongklod_bangtamruat.plantseconomic.utility.MyAlert;
@@ -40,18 +47,26 @@ public class SupplierRegisterFragment extends Fragment {
     //    Explicit
     private String companyString, addressString, faxString,
             telephoneString, businessString, emailString,
-            passwordString, headQuartersString,uidUserString,
+            passwordString, headQuartersString,uidUserString,pathUrlImageString,
             statusString;//0 ==> Free, 1 ==> Wait ,2 ==> VIP
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private DatabaseReference databaseReference;
     private ProgressDialog progressDialog;
     private SupplierModel supplierModel;
+    private boolean avataABoolean = true;
+    private Uri uri;
+    private CircleImageView circleImageView;
+
 
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+//        Avata Controller
+        avataController();
+
 
 //        Save Controller
         saveController();
@@ -59,7 +74,51 @@ public class SupplierRegisterFragment extends Fragment {
 
     }
 
+    private void avataController() {
+
+        circleImageView = getView().findViewById(R.id.imvAvata);
+        circleImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                startActivityForResult(Intent.createChooser(intent,"Please Choose App"),1);
+
+            }
+        });
+
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode==getActivity().RESULT_OK) {
+
+            avataABoolean = false;
+            uri = data.getData();
+
+
+            try {
+
+                Bitmap bitmap = BitmapFactory
+                        .decodeStream(getActivity().getContentResolver()
+                        .openInputStream(uri));
+                circleImageView.setImageBitmap(bitmap);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+
+
+    }
+
     private void saveController() {
+
         Button button = getView().findViewById(R.id.btnSaveSupplier);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,15 +142,27 @@ public class SupplierRegisterFragment extends Fragment {
                 passwordString = passwordEditText.getText().toString().trim();
                 headQuartersString = headQuartersEditText.getText().toString().trim();
 
-                if (checkSpace()) {
+                MyAlert myAlert = new MyAlert(getActivity());
+
+                if (avataABoolean) {
+
+                    myAlert.nomalDialog(getResources().getString(R.string.title_Choose_image),
+                            getResources().getString(R.string.message_choose_image));
+
+
+                }else if (checkSpace()) {
+
 //                    Have Space
-                    MyAlert myAlert = new MyAlert(getActivity());
+
                     myAlert.nomalDialog(getResources().getString(R.string.title_have_space),
                             getResources().getString(R.string.massage_have_space));
+
                 } else {
+
 //                    No Space
                     confirmValue();
-                }
+
+                }//if
 
 
             }
@@ -118,16 +189,18 @@ public class SupplierRegisterFragment extends Fragment {
                 "Please Choose Status");
 
 
-
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+
                 dialogInterface.dismiss();
+
             }
         });
         builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+
                 uploadValueFirebase();
                 dialogInterface.dismiss();
 
@@ -154,13 +227,17 @@ public class SupplierRegisterFragment extends Fragment {
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if (task.isSuccessful()) {
+
 //                            Register Success
                             registerSuccess();
+
                         } else {
+
 //                            Register Error
                             String resultError = task.getException().getMessage();
                             MyAlert myAlert = new MyAlert(getActivity());
                             myAlert.nomalDialog("Cannot Register",resultError);
+
                         }
 
                     }//onComplete
@@ -174,16 +251,86 @@ public class SupplierRegisterFragment extends Fragment {
 
     private void registerSuccess() {
 
+//        ================================================================================================================
+
+
+//        Update Image to Data
+
+
+//        ================================================================================================================
+
+
+        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+        StorageReference storageReference=firebaseStorage.getReference()
+                .child("LogoSupplier/"+companyString);
+
+        storageReference.putFile(uri)
+                .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+
+
+                        if (task.isSuccessful()) {
+
+                            Log.d("13MayV1", "Upload Image Success");
+                            findPath();
+
+                        } else {
+
+                            Log.d("13MayV1", "Cannot upload ==> " + task.getException().getMessage().toString());
+
+                        }
+
+                    }
+                });
+
+
+
+
+    }//Register Success
+
+    private void findPath() {
+
+        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+        StorageReference storageReference = firebaseStorage.getReference()
+                .child("LogoSupplier/" + companyString);
+
+
+        final String[] strings=new String[]{""};
+
+        storageReference.getDownloadUrl()
+                .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+
+                        strings[0] = uri.toString();
+                        pathUrlImageString = strings[0];
+                        updateTextToFirebase();
+
+                    }
+                });
+
+    }
+
+    private void updateTextToFirebase() {
+//        ================================================================================================================
+
+
+//        Update Value to Database
+
+
+//        ================================================================================================================
+
         final String tag = "27DecV2";
 
 //        for Database
         firebaseUser = firebaseAuth.getCurrentUser();
         uidUserString = firebaseUser.getUid();
-        Log.d(tag, "uid Current User ==>" + uidUserString);
+        Log.d(tag, "uid Current User ==> " + uidUserString);
 
 //        Set upModel
         supplierModel = new SupplierModel(uidUserString,companyString,addressString,faxString
-        ,telephoneString,businessString,headQuartersString,"0");
+        ,telephoneString,businessString,headQuartersString,"0", pathUrlImageString);
 
         UserProfileChangeRequest userProfileChangeRequest = new UserProfileChangeRequest
                 .Builder()
@@ -209,7 +356,7 @@ public class SupplierRegisterFragment extends Fragment {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.d(tag, "Failure ==>" + e.toString());
+                Log.d(tag, "Failure ==> " + e.toString());
             }
         });
 
@@ -219,8 +366,6 @@ public class SupplierRegisterFragment extends Fragment {
                 Toast.LENGTH_SHORT).show();
 
         progressDialog.dismiss();
-
-        //getActivity().getSupportFragmentManager().popBackStack();
     }
 
     private boolean checkSpace() {

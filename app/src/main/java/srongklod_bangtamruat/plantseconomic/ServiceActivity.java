@@ -76,7 +76,7 @@ public class ServiceActivity extends AppCompatActivity {
         createToolbar();
 
 //        Check ReceiveMessage
-        checkReceiveMessage();
+//        checkReceiveMessage();
 
 
     }   // Main Method

@@ -22,6 +22,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imvAvata"
+                    android:layout_width="@dimen/avatar"
+                    android:layout_height="@dimen/avatar"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="@dimen/margin"
+                    android:src="@drawable/avatar" />
+
+
                <!--Company Name-->
                 <LinearLayout
                     android:orientation="horizontal"

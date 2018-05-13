@@ -7,11 +7,11 @@ import android.os.Parcelable;
  * Created by Administrator on 27/12/2560.
  */
 
-public class SupplierModel implements Parcelable {
+public class SupplierModel implements Parcelable{
 
     private String uidUserString, companyString,
             addressString, faxString, telephoneString,
-            bussinessString, headquartersString,statusString;
+            bussinessString, headquartersString,statusString,pathLogoString;
 
     public SupplierModel() {
     }
@@ -23,7 +23,8 @@ public class SupplierModel implements Parcelable {
                          String telephoneString,
                          String bussinessString,
                          String headquartersString,
-                         String statusString) {
+                         String statusString,
+                         String pathLogoString) {
         this.uidUserString = uidUserString;
         this.companyString = companyString;
         this.addressString = addressString;
@@ -32,6 +33,7 @@ public class SupplierModel implements Parcelable {
         this.bussinessString = bussinessString;
         this.headquartersString = headquartersString;
         this.statusString = statusString;
+        this.pathLogoString = pathLogoString;
     }
 
     protected SupplierModel(Parcel in) {
@@ -43,6 +45,7 @@ public class SupplierModel implements Parcelable {
         bussinessString = in.readString();
         headquartersString = in.readString();
         statusString = in.readString();
+        pathLogoString = in.readString();
     }
 
     public static final Creator<SupplierModel> CREATOR = new Creator<SupplierModel>() {
@@ -56,14 +59,6 @@ public class SupplierModel implements Parcelable {
             return new SupplierModel[size];
         }
     };
-
-    public String getStatusString() {
-        return statusString;
-    }
-
-    public void setStatusString(String statusString) {
-        this.statusString = statusString;
-    }
 
     public String getUidUserString() {
         return uidUserString;
@@ -121,19 +116,37 @@ public class SupplierModel implements Parcelable {
         this.headquartersString = headquartersString;
     }
 
+    public String getStatusString() {
+        return statusString;
+    }
+
+    public void setStatusString(String statusString) {
+        this.statusString = statusString;
+    }
+
+    public String getPathLogoString() {
+        return pathLogoString;
+    }
+
+    public void setPathLogoString(String pathLogoString) {
+        this.pathLogoString = pathLogoString;
+    }
+
     @Override
     public int describeContents() {
         return 0;
     }
 
     @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(uidUserString);
-        parcel.writeString(companyString);
-        parcel.writeString(addressString);
-        parcel.writeString(faxString);
-        parcel.writeString(telephoneString);
-        parcel.writeString(bussinessString);
-        parcel.writeString(headquartersString);
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(uidUserString);
+        dest.writeString(companyString);
+        dest.writeString(addressString);
+        dest.writeString(faxString);
+        dest.writeString(telephoneString);
+        dest.writeString(bussinessString);
+        dest.writeString(headquartersString);
+        dest.writeString(statusString);
+        dest.writeString(pathLogoString);
     }
 }//Main Class

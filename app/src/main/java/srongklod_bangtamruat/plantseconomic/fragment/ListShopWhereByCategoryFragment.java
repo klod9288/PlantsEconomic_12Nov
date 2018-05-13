@@ -1,9 +1,11 @@
 package srongklod_bangtamruat.plantseconomic.fragment;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -240,6 +242,8 @@ public class ListShopWhereByCategoryFragment extends Fragment {
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                                 Log.d("12MayV1", "You Click ==> " + myNameProductStringArrayList.get(position));
+                                confirmAlertDialog(myNameProductStringArrayList.get(position));
+
 
                             }
                         });
@@ -267,6 +271,91 @@ public class ListShopWhereByCategoryFragment extends Fragment {
 
 
     }//Find Detail
+
+    private void confirmAlertDialog(String nameProductString) {
+
+        Log.d("12MayV2", "ชื่อสินค้าที่ถูกเลือก ==> " + nameProductString);
+
+        final String supplierString = nameProductString.substring(0, (nameProductString.length() - 5));
+        Log.d("12MayV2", "supplier ==> " + supplierString);
+
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = firebaseDatabase.getReference()
+                .child("Supplier")
+                .child(supplierString);
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                Map map = (Map) dataSnapshot.getValue();
+
+                String companyString = String.valueOf(map.get("companyString"));
+                String businessString = String.valueOf(map.get("bussinessString"));
+                String headString = String.valueOf(map.get("headquartersString"));
+
+                showAlertDialog(supplierString, companyString,businessString, headString);
+
+
+            }//OnDataChange
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+    }
+
+    private void showAlertDialog(final String supplierString, String companyString,
+                                 String businessString, String headString) {
+
+        try {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setCancelable(false);
+            builder.setIcon(R.drawable.ic_action_alert);
+            builder.setTitle("Want To Sent Message ?");
+            builder.setMessage("company = " + companyString + "\n"
+                    + "business = " + businessString + "\n" + "HeadQuester = " + headString);
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                    dialog.dismiss();
+
+                }
+            });
+            builder.setPositiveButton("Send Message", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                    dialog.dismiss();
+                    moveToSendMessage(supplierString);
+
+
+                }
+            });
+            builder.show();
+
+        } catch (Exception e) {
+
+
+
+        }
+    }
+
+    private void moveToSendMessage(String supplierString) {
+
+        getActivity()
+                .getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.contentServiceFragment,
+                        MessageCustomerFragment.messageCustomerInstance(supplierString))
+                .addToBackStack(null)
+        .commit();
+
+    }
 
     private void createArrayListForShow() {
 
